@@ -18,6 +18,11 @@ with description('A new'):
                 self.config['debug'] = True
                 face = FACe(**self.config)
 
+            with it('must handle environment definition'):
+                self.config['environment'] = "prod"
+                face = FACe(**self.config)
+                assert face.environment == self.config['environment']
+
             with it('action list nifs must work'):
                 #self.face.list_nifs()
                 pass
