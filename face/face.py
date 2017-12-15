@@ -4,7 +4,7 @@ import zeep
 from zeep.helpers import serialize_object
 import os.path
 import base64
-from .models import ResponseSchema, ResultadoSchema
+from .models import ResponseSchema
 
 # FACe environments
 FACE_ENVS = {
@@ -53,8 +53,9 @@ class FACe(object):
         """
         call_result = serialize_object(self.client.service.consultarNIFs())
 
-        schema = ResultadoSchema()
-        return schema.load(dict(call_result['resultado']))
+        schema = ResponseSchema()
+        print (call_result.keys())
+        return schema.load(call_result)
 
     def send_invoice(self, invoice):
         """
