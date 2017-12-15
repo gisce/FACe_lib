@@ -54,7 +54,6 @@ class FACe(object):
         call_result = serialize_object(self.client.service.consultarNIFs())
 
         schema = ResponseSchema()
-        print (call_result.keys())
         return schema.load(call_result)
 
     def send_invoice(self, invoice):

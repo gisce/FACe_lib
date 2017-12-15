@@ -60,12 +60,15 @@ with description('A new'):
 
 
             with it('action list nifs must work'):
-                result = self.face.list_nifs()
+                call = self.face.list_nifs()
 
-                # Validate the resultant object schema
-                the_result = result.data
-                assert isinstance(the_result, models.Resultado), "The result must be a `Resultado` instance"
-                print (the_result)
+                # Validate the response
+                response = call.data
+                assert isinstance(response, models.Response), "The response must be a `Response` instance"
+
+                # Validate the result
+                result = response.resultado
+                assert isinstance(result, models.Resultado), "The result must be a `Resultado` instance"
 
 
             with it('action send invoice must work'):
