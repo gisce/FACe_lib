@@ -6,6 +6,7 @@ with description('A new'):
     with before.each:
         self.config = {
             'certificate': OUR_CERT,
+            'environment': "staging",
         }
         self.face = FACe(**self.config)
 
