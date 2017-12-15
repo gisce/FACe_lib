@@ -23,7 +23,7 @@ class FACe(object):
         self.environment = "prod"
         if 'environment' in kwargs:
             assert type(kwargs['environment']) == str, "environment argument must be an string"
-            assert kwargs['environment'] in FACE_ENVS.keys(), "Provided environment '{}' not recognized in defined FACE_ENVS [{}]".format(kwargs['environment'], str(FACE_ENVS))
+            assert kwargs['environment'] in FACE_ENVS.keys(), "Provided environment '{}' not recognized in defined FACE_ENVS {}".format(kwargs['environment'], str(FACE_ENVS.keys()))
             self.environment = kwargs['environment']
 
 
