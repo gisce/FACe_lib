@@ -71,7 +71,7 @@ class FACe(object):
                 "mime": "application/xml",
             }
         }
-        call_result = self.client.service.enviarFactura(the_invoice)
-
+        call_result = serialize_object(self.client.service.enviarFactura(the_invoice))
+        print (call_result)
         schema = ResponseSchema()
         return schema.load(call_result)

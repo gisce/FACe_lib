@@ -75,6 +75,7 @@ with description('A new'):
                 the_invoice = TEST_INVOICE
                 call = self.face.send_invoice(invoice=the_invoice)
 
+                print (call)
                 # Validate the response
                 response = call.data
                 assert isinstance(response, models.Response), "The response must be a `Response` instance"
