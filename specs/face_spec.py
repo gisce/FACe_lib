@@ -1,9 +1,13 @@
 from face import FACe
 
+OUR_CERT = "certs/our_cert.pem"
 
 with description('A new'):
     with before.each:
-        pass
+        self.config = {
+            'certificate': OUR_CERT,
+        }
+
     with context('FACe instance'):
         with it('must be initialized properly'):
-            pass
+            face = FACe(**self.config)
