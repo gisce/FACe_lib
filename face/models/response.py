@@ -7,13 +7,16 @@ class Resultado(object):
         self.descripcion = descripcion
         self.codigoSeguimiento = codigoSeguimiento
 
+
 class ResultadoSchema(Schema):
     codigo = fields.Integer()
     descripcion = fields.String()
-    codigoSeguimiento = fields.String()
+    codigoSeguimiento = fields.String(allow_none=True)
+
 
 class ResponseSchema(Schema):
     resultado = fields.Nested(ResultadoSchema, many=False)
+
 
 class Response(object):
     pass
