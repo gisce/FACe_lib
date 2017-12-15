@@ -1,4 +1,5 @@
-from face import FACe
+# -*- coding: utf-8 -*-
+from face import FACe, models
 
 OUR_CERT = "certs/our_cert.pem"
 TEST_INVOICE = 'specs/factura-prueba-v1-2-0.xsig'
@@ -60,7 +61,11 @@ with description('A new'):
 
             with it('action list nifs must work'):
                 result = self.face.list_nifs()
-                #print (result)
+
+                # Validate the resultant object schema
+                the_result = result.data
+                assert isinstance(the_result, models.Resultado), "The result must be a `Resultado` instance"
+                print (the_result)
 
 
             with it('action send invoice must work'):
