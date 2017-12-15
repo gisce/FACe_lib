@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from FACe_signer import FACe_signer
 import zeep
+import os.path
 
 # FACe environments
 FACE_ENVS = {
@@ -11,6 +12,7 @@ FACE_ENVS = {
 class FACe(object):
     def __init__(self, **kwargs):
         assert "certificate" in kwargs and type(kwargs['certificate']) == str, "The certificate filename for requests signing must be defined"
+        assert os.path.isfile(kwargs['certificate']), "Provided certificate do not exist (or not enought permissions to read it)"
         self.certificate = kwargs['certificate']
 
         # Handle debug, df "False"
