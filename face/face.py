@@ -13,10 +13,13 @@ class FACe(object):
         assert "certificate" in kwargs, "The certificate for requests signing must be defined"
         self.certificate = kwargs['certificate']
 
+        assert type(kwargs['debug']) == bool, "debug argument must be a boolean"
+        self.debug = kwargs['debug']
+
         # initialize a ZEEP client with the desired FACe envs
         self.client = zeep.Client(
             FACE_ENVS['staging'],
-            plugins=[FACe_signer(self.certificate, debug=True)]
+            plugins=[FACe_signer(self.certificate, debug=self.debug)]
         )
 
     def list_nifs(self):
