@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from marshmallow import fields, Schema, post_load
 
+"""
+FACe Result
+"""
+
 class Result(object):
     def __init__(self, codigo, descripcion, codigoSeguimiento):
         self.codigo = codigo
@@ -20,6 +24,12 @@ class ResultSchema(Schema):
         """
         return Result(**data)
 
+
+"""
+FACe Response
+
+By default, a response ever contain a Response and an instance of the requested service
+"""
 
 class Response(object):
     def __init__(self, resultado):
