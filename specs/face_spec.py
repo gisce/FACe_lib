@@ -7,7 +7,11 @@ with description('A new'):
         self.config = {
             'certificate': OUR_CERT,
         }
+        self.face = FACe(**self.config)
 
     with context('FACe instance'):
         with it('must be initialized properly'):
             face = FACe(**self.config)
+
+        with it('action list nifs must work'):
+            self.face.list_nifs()
