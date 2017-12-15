@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from marshmallow import fields, Schema, post_load
 
-class Resultado(object):
+class Result(object):
     def __init__(self, codigo, descripcion, codigoSeguimiento):
         self.codigo = codigo
         self.descripcion = descripcion
         self.codigoSeguimiento = codigoSeguimiento
 
 
-class ResultadoSchema(Schema):
+class ResultSchema(Schema):
     codigo = fields.Integer()
     descripcion = fields.String()
     codigoSeguimiento = fields.String(allow_none=True)
@@ -16,9 +16,9 @@ class ResultadoSchema(Schema):
     @post_load
     def create_resultado(self, data):
         """
-        Return a Resultado instance while deserializing ResultadoSchema
+        Return a Result instance while deserializing ResultSchema
         """
-        return Resultado(**data)
+        return Result(**data)
 
 
 class Response(object):
@@ -26,7 +26,7 @@ class Response(object):
         self.resultado = resultado
 
 class ResponseSchema(Schema):
-    resultado = fields.Nested(ResultadoSchema, many=False)
+    resultado = fields.Nested(ResultSchema, many=False)
 
     @post_load
     def create_response(self, data):

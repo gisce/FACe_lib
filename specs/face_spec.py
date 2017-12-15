@@ -68,7 +68,7 @@ with description('A new'):
 
                 # Validate the result
                 result = response.resultado
-                assert isinstance(result, models.Resultado), "The result must be a `Resultado` instance"
+                assert isinstance(result, models.Result), "The result must be a `Result` instance"
 
 
             with it('action send invoice must work'):
