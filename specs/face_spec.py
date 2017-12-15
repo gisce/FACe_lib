@@ -15,13 +15,39 @@ with description('A new'):
                 face = FACe(**self.config)
 
             with it('must handle debug mode'):
-                self.config['debug'] = True
-                face = FACe(**self.config)
+                config = dict(self.config)
+                config['debug'] = True
+                face = FACe(**config)
+                assert face.debug == config['debug']
+
+                config = dict(self.config)
+                config['debug'] = "WRONG-DEBUG"
+                excepts = False
+                try:
+                    face = FACe(**config)
+                except:
+                    excepts = True
+                assert excepts, "FACe init with an incorrect debug mode must not work"
+
+
 
             with it('must handle environment definition'):
-                self.config['environment'] = "prod"
-                face = FACe(**self.config)
-                assert face.environment == self.config['environment']
+                config = dict(self.config)
+                config['environment'] = "prod"
+                face = FACe(**config)
+                assert face.environment == config['environment']
+
+                config = dict(self.config)
+                config['environment'] = "WRONG-ENV"
+                excepts = False
+                try:
+                    face = FACe(**config)
+                except:
+                    excepts = True
+                assert excepts, "FACe init with an incorrect env must not work"
+
+
+
 
             with it('action list nifs must work'):
                 #self.face.list_nifs()
