@@ -23,7 +23,14 @@ class ResultadoSchema(Schema):
 
 class Response(object):
     def __init__(self, resultado):
-        self.resultado
+        self.resultado = resultado
 
 class ResponseSchema(Schema):
     resultado = fields.Nested(ResultadoSchema, many=False)
+
+    @post_load
+    def create_response(self, data):
+        """
+        Return a Response instance while deserializing ResponseSchema
+        """
+        return Response(**data)
