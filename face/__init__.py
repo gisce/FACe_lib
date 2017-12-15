@@ -5,4 +5,4 @@ __author__ = 'XaviTorello'
 __version__ = '0.1.0'
 
 from .face import FACe
-from .models import Response
+from .models import *

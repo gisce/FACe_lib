@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from .response import Response
+from .response import Response, ResponseSchema, ResultadoSchema
