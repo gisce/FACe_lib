@@ -21,9 +21,9 @@ class ResultadoSchema(Schema):
         return Resultado(**data)
 
 
+class Response(object):
+    def __init__(self, resultado):
+        self.resultado
+
 class ResponseSchema(Schema):
     resultado = fields.Nested(ResultadoSchema, many=False)
-
-
-class Response(object):
-    pass
