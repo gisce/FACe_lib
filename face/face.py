@@ -10,7 +10,15 @@ FACE_ENVS = {
 }
 
 class FACe(object):
+    """
+    FACe object
+
+    Prepare an interface to reach FACe webservices
+    """
     def __init__(self, **kwargs):
+        """
+        Initializes a FACe instance using Zeep with FACe signature plugin using the requested certificate.
+        """
         assert "certificate" in kwargs and type(kwargs['certificate']) == str, "The certificate filename for requests signing must be defined"
         assert os.path.isfile(kwargs['certificate']), "Provided certificate do not exist (or not enought permissions to read it)"
         self.certificate = kwargs['certificate']
