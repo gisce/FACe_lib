@@ -24,8 +24,6 @@ with description('A new'):
                 assert excepts, "FACe init with an incorrect debug mode must not work"
 
 
-
-
             with it('must handle debug mode'):
                 config = dict(self.config)
                 config['debug'] = True
@@ -42,7 +40,6 @@ with description('A new'):
                 assert excepts, "FACe init with an incorrect debug mode must not work"
 
 
-
             with it('must handle environment definition'):
                 config = dict(self.config)
                 config['environment'] = "prod"
@@ -57,8 +54,6 @@ with description('A new'):
                 except:
                     excepts = True
                 assert excepts, "FACe init with an incorrect env must not work"
-
-
 
 
             with it('action list nifs must work'):
