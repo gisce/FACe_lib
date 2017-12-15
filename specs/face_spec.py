@@ -10,8 +10,14 @@ with description('A new'):
         self.face = FACe(**self.config)
 
     with context('FACe instance'):
-        with it('must be initialized properly'):
-            face = FACe(**self.config)
+        with context('initialization'):
+            with it('must work'):
+                face = FACe(**self.config)
 
-        with it('action list nifs must work'):
-            self.face.list_nifs()
+            with it('must handle debug mode'):
+                self.config['debug'] = True
+                face = FACe(**self.config)
+
+            with it('action list nifs must work'):
+                #self.face.list_nifs()
+                pass
