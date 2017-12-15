@@ -6,5 +6,8 @@ class ResultadoSchema(Schema):
     descripcion = fields.String()
     codigoSeguimiento = fields.String()
 
+class ResponseSchema(Schema):
+    resultado = fields.Nested(ResultadoSchema, many=False)
+
 class Response(object):
     pass
