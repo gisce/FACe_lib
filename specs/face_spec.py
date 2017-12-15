@@ -1,6 +1,7 @@
 from face import FACe
 
 OUR_CERT = "certs/our_cert.pem"
+TEST_INVOICE = 'specs/factura-prueba-v1-2-0.xsig'
 
 with description('A new'):
     with before.each:
@@ -58,5 +59,11 @@ with description('A new'):
 
 
             with it('action list nifs must work'):
-                #self.face.list_nifs()
-                pass
+                result = self.face.list_nifs()
+                #print (result)
+
+
+            with it('action send invoice must work'):
+                the_invoice = TEST_INVOICE
+                result = self.face.send_invoice(invoice=the_invoice)
+                #print (result)
