@@ -14,6 +14,18 @@ with description('A new'):
             with it('must work'):
                 face = FACe(**self.config)
 
+                config = dict(self.config)
+                config['certificate'] = 'fake-path/fake-cert.pem'
+                excepts = False
+                try:
+                    face = FACe(**config)
+                except:
+                    excepts = True
+                assert excepts, "FACe init with an incorrect debug mode must not work"
+
+
+
+
             with it('must handle debug mode'):
                 config = dict(self.config)
                 config['debug'] = True
