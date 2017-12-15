@@ -71,4 +71,7 @@ class FACe(object):
                 "mime": "application/xml",
             }
         }
-        return self.client.service.enviarFactura(the_invoice)
+        call_result = self.client.service.enviarFactura(the_invoice)
+
+        schema = ResponseSchema()
+        return schema.load(call_result)

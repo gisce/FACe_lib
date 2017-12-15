@@ -73,7 +73,7 @@ with description('A new'):
 
             with it('action send invoice must work'):
                 the_invoice = TEST_INVOICE
-                result = self.face.send_invoice(invoice=the_invoice)
+                call = self.face.send_invoice(invoice=the_invoice)
 
                 # Validate the response
                 response = call.data
