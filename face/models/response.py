@@ -3,6 +3,8 @@ from marshmallow import fields, Schema, post_load
 
 """
 FACe Result
+
+Integrates the code, a description and a tracking code
 """
 
 class Result(object):

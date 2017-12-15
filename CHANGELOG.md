@@ -1,0 +1,11 @@
+# 0.1.0
+- Initial FACe interface
+  - Initializes a zeep client with FACe signer plugin
+    - debug flag and environment (prod / staging) can be defined
+  - Provided methods (from SOAP FACe services)
+    - list_nifs()
+    - send_invoice(invoice)
+  - Marshmallowed responses and results with ending models deserialization
+    - Models and schemas for
+      - Response
+      - Result
