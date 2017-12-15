@@ -72,6 +72,5 @@ class FACe(object):
             }
         }
         call_result = serialize_object(self.client.service.enviarFactura(the_invoice))
-        print (call_result)
         schema = ResponseSchema()
         return schema.load(call_result)

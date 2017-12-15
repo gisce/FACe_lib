@@ -4,6 +4,24 @@ from face import FACe, models
 OUR_CERT = "certs/our_cert.pem"
 TEST_INVOICE = 'specs/factura-prueba-v1-2-0.xsig'
 
+def validate_response(response):
+    """
+    Auxiliar method to validate a Response
+
+    It asserts:
+    - the type of the response
+    - the type of the result of the response
+    - the status of a result (codigo=0 and descripcion="Correcto")
+    """
+    assert isinstance(response, models.Response), "The response must be a `Response` instance"
+
+    # Validate the result of the response
+    result = response.resultado
+    assert isinstance(result, models.Result), "The result must be a `Result` instance"
+    assert result.descripcion == "Correcto", "Result description '{}' must be 'Correcto'".format(result.descripcion)
+    assert result.codigo == 0, "Result codigo '{}' must be '0'".format(result.codigo)
+
+
 with description('A new'):
     with before.each:
         self.config = {
@@ -64,22 +82,17 @@ with description('A new'):
 
                 # Validate the response
                 response = call.data
-                assert isinstance(response, models.Response), "The response must be a `Response` instance"
+                validate_response(response)
 
-                # Validate the result of the response
-                result = response.resultado
-                assert isinstance(result, models.Result), "The result must be a `Result` instance"
+                # Validate the nifs
 
 
             with it('action send invoice must work'):
                 the_invoice = TEST_INVOICE
                 call = self.face.send_invoice(invoice=the_invoice)
 
-                print (call)
                 # Validate the response
                 response = call.data
-                assert isinstance(response, models.Response), "The response must be a `Response` instance"
+                validate_response(response)
 
-                # Validate the result of the response
-                result = response.resultado
-                assert isinstance(result, models.Result), "The result must be a `Result` instance"
+                # Validate the result of the send
