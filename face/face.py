@@ -18,3 +18,6 @@ class FACe(object):
             FACE_ENVS['staging'],
             plugins=[FACe_signer(self.certificate, debug=True)]
         )
+
+    def list_nifs(self):
+        self.client.service.consultarNIFs()
