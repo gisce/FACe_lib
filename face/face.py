@@ -50,3 +50,20 @@ class FACe(object):
         Return all the available NIFs
         """
         return self.client.service.consultarNIFs()
+
+    def send_invoice(self, invoice):
+        """
+        Send an invoice and return the delivery result
+
+        It prepares the payload wanted for the `enviarFactura` webservice with a base64 invoice and their filename
+        """
+        assert type(invoice) == str, "Invoice must the the filename of the invoice to deliver"
+        the_invoice = {
+            "correo": "devel@gisce.net",
+            "factura": {
+                "factura": base64.b64encode(open(invoice).read()),
+                "nombre": os.path.basename(invoice),
+                "mime": "application/xml",
+            }
+        }
+        return self.client.service.enviarFactura(the_invoice)
