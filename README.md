@@ -10,3 +10,4 @@ from face import FACe
 our_certificate = 'path_to/cert.pem',
 
 face = FACe(certificate=our_certificate)
+```
