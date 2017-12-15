@@ -2,6 +2,7 @@
 from FACe_signer import FACe_signer
 import zeep
 import os.path
+import base64
 
 # FACe environments
 FACE_ENVS = {
@@ -36,7 +37,6 @@ class FACe(object):
             assert kwargs['environment'] in FACE_ENVS.keys(), "Provided environment '{}' not recognized in defined FACE_ENVS {}".format(kwargs['environment'], str(FACE_ENVS.keys()))
             self.environment = kwargs['environment']
 
-
         # initialize a ZEEP client with the desired FACe envs
         self.client = zeep.Client(
             FACE_ENVS[self.environment],
@@ -44,4 +44,9 @@ class FACe(object):
         )
 
     def list_nifs(self):
-        self.client.service.consultarNIFs()
+        """
+        List NIFs method.
+
+        Return all the available NIFs
+        """
+        return self.client.service.consultarNIFs()
