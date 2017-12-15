@@ -10,11 +10,14 @@ FACE_ENVS = {
 
 class FACe(object):
     def __init__(self, **kwargs):
-        assert "certificate" in kwargs, "The certificate for requests signing must be defined"
+        assert "certificate" in kwargs and type(kwargs['certificate']) == str, "The certificate filename for requests signing must be defined"
         self.certificate = kwargs['certificate']
 
-        assert type(kwargs['debug']) == bool, "debug argument must be a boolean"
-        self.debug = kwargs['debug']
+        self.debug = True
+        # Handle optional kwarg
+        if 'debug' in kwargs:
+            assert type(kwargs['debug']) == bool, "debug argument must be a boolean"
+            self.debug = kwargs['debug']
 
         # initialize a ZEEP client with the desired FACe envs
         self.client = zeep.Client(
