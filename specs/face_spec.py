@@ -66,7 +66,7 @@ with description('A new'):
                 response = call.data
                 assert isinstance(response, models.Response), "The response must be a `Response` instance"
 
-                # Validate the result
+                # Validate the result of the response
                 result = response.resultado
                 assert isinstance(result, models.Result), "The result must be a `Result` instance"
 
@@ -74,4 +74,11 @@ with description('A new'):
             with it('action send invoice must work'):
                 the_invoice = TEST_INVOICE
                 result = self.face.send_invoice(invoice=the_invoice)
-                #print (result)
+
+                # Validate the response
+                response = call.data
+                assert isinstance(response, models.Response), "The response must be a `Response` instance"
+
+                # Validate the result of the response
+                result = response.resultado
+                assert isinstance(result, models.Result), "The result must be a `Result` instance"
