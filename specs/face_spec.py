@@ -7,7 +7,10 @@ TEST_INVOICE = 'specs/factura-prueba-v1-2-0.xsig'
 
 models_by_base_field = {
     "resultado": models.Result,
-    "factura": models.Invoice,
+    "factura": {
+        "response": models.invoice.Invoice,
+        "content": models.invoice.InvoiceResponse,
+    },
 }
 
 def validate_response(response, model=None):
@@ -19,19 +22,29 @@ def validate_response(response, model=None):
     - the type of the result of the response
     - the status of a result (codigo=0 and descripcion="Correcto")
     """
-    assert isinstance(response, models.Response), "The response must be a `Response` instance"
 
-    # Validate the result of the response
-    result = response.resultado
-    assert isinstance(result, models.Result), "The result must be a `Result` instance"
-    assert result.descripcion == "Correcto", "Result description '{}' must be 'Correcto'".format(result.descripcion)
-    assert result.codigo == 0, "Result codigo '{}' must be '0'".format(result.codigo)
 
+    # Test provided model
     if model:
-        # Validate the result of the response
-        component = response[model]
-        assert isinstance(result, models_by_base_field[model]), "The data '{}' must be a `{}` instance".format(component, models_by_base_field[model])
+        expected_response_model = models_by_base_field[model]["response"]
+        expected_content_model = models_by_base_field[model]["content"]
 
+        # Validate the response
+        assert isinstance(response, expected_response_model), "The response must be a `{}` instance".format(response, expected_response_model)
+
+        # Validate the internal component of this response
+        component = response[model]
+        assert isinstance(component, expected_content_model), "The data '{}' must be a `{}` instance".format(component, models_by_base_field[model])
+
+    # Test default Response
+    else:
+        assert isinstance(response, models.Response), "The response must be a `Response` instance"
+
+        # Validate the result of the response
+        result = response.resultado
+        assert isinstance(result, models.Result), "The result must be a `Result` instance"
+        assert result.descripcion == "Correcto", "Result description '{}' must be 'Correcto'".format(result.descripcion)
+        assert result.codigo == 0, "Result codigo '{}' must be '0'".format(result.codigo)
 
 
 
@@ -110,7 +123,7 @@ with description('A new'):
 
                 # Validate the response
                 response = call.data
-                validate_response(response)
+                validate_response(response, model="factura")
 
                 print (response)
                 print (response.resultado.codigo)
