@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 from marshmallow import fields, Schema, post_load
 
-"""
-FACe Invoice Response
+from .response import Response, ResponseSchema
 
-Integrates the code, a description and a tracking code
+"""
+FACe Invoice models and schemas
+
+It defines the "factura" response content and defines an extended Response with the "factura" integrated:
+- InvoiceResponse and InvoiceSchema defines the resultado.factura
+- Invoice and InvoiceSchema extends the base Response to integrate the "factura" component
 """
 
 class InvoiceResponse(object):
@@ -35,3 +39,19 @@ class InvoiceResponseSchema(Schema):
         Return a Result instance while deserializing ResultSchema
         """
         return InvoiceResponse(**data)
+
+
+class Invoice(Response):
+    def __init__(self, resultado, factura):
+        super(Invoice).__init__(resultado)
+        self.factura = factura
+
+class InvoiceSchema(ResponseSchema):
+    factura = fields.Nested(InvoiceResponseSchema, many=False)
+
+    @post_load
+    def create_response(self, data):
+        """
+        Return a Response instance while deserializing ResponseSchema
+        """
+        return Invoice(**data)
