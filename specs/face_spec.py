@@ -4,9 +4,15 @@ from face import FACe, models
 OUR_CERT = "certs/our_cert.pem"
 TEST_INVOICE = 'specs/factura-prueba-v1-2-0.xsig'
 
-def validate_response(response):
+
+models_by_base_field = {
+    "resultado": models.Result,
+    "factura": models.Invoice,
+}
+
+def validate_response(response, model=None):
     """
-    Auxiliar method to validate a Response
+    Auxiliar method to validate responses
 
     It asserts:
     - the type of the response
@@ -21,6 +27,14 @@ def validate_response(response):
     assert result.descripcion == "Correcto", "Result description '{}' must be 'Correcto'".format(result.descripcion)
     assert result.codigo == 0, "Result codigo '{}' must be '0'".format(result.codigo)
 
+    if model:
+        # Validate the result of the response
+        component = response[model]
+        assert isinstance(result, models_by_base_field[model]), "The data '{}' must be a `{}` instance".format(component, models_by_base_field[model])
+
+
+
+
 
 with description('A new'):
     with before.each:
@@ -32,7 +46,9 @@ with description('A new'):
 
     with context('FACe instance'):
         with context('initialization'):
+            """
             with it('must work'):
+                ""
                 face = FACe(**self.config)
 
                 config = dict(self.config)
@@ -86,6 +102,7 @@ with description('A new'):
 
                 # Validate the nifs
 
+            """
 
             with it('action send invoice must work'):
                 the_invoice = TEST_INVOICE
@@ -95,11 +112,13 @@ with description('A new'):
                 response = call.data
                 validate_response(response)
 
-                self.response = response
+                print (response)
+                print (response.resultado.codigo)
+                print (response.factura.numeroFactura)
 
                 # Validate the result of the send
 
-
+            """
             with it('action cancel invoice must work'):
                 the_invoice = TEST_INVOICE
                 call = self.face.send_invoice(invoice=the_invoice)
@@ -111,3 +130,4 @@ with description('A new'):
                 the_invoice_to_cancel = response
 
                 # Validate the result of the send
+            """

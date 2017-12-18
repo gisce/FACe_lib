@@ -43,7 +43,7 @@ class InvoiceResponseSchema(Schema):
 
 class Invoice(Response):
     def __init__(self, resultado, factura):
-        super(Invoice).__init__(resultado)
+        super(Invoice, self).__init__(resultado)
         self.factura = factura
 
 class InvoiceSchema(ResponseSchema):
