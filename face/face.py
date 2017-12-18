@@ -72,7 +72,6 @@ class FACe(object):
             }
         }
         call_result = serialize_object(self.client.service.enviarFactura(the_invoice))
-        print (call_result)
         schema = InvoiceSchema()
         return schema.load(call_result)
 
@@ -86,11 +85,15 @@ class FACe(object):
         assert type(invoice) == str, "Invoice registry number must be an string"
         assert type(reason) == str, "The reason must be an string"
         the_invoice = {
-            "numeroRegistro": invoice,
-            "motivo": reason,
+            "numeroRegistro": "invoice",
+            "motivo": "reason",
         }
+
+        print (self.client.service.anularFactura(the_invoice))
+        """
         call_result = serialize_object(self.client.service.anularFactura(the_invoice))
 
         print (call_result)
         schema = InvoiceSchema()
         return schema.load(call_result)
+        """

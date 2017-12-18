@@ -57,6 +57,7 @@ with description('A new'):
 
     with context('FACe instance'):
         with context('initialization'):
+            """
             with it('must work'):
                 ""
                 face = FACe(**self.config)
@@ -122,17 +123,23 @@ with description('A new'):
                 validate_response(response, model="invoice")
 
                 # Validate the result of the send
-
             """
+
             with it('action cancel invoice must work'):
+                # Send a dummy invoice, just to fetch their invoice id
                 the_invoice = TEST_INVOICE
                 call = self.face.send_invoice(invoice=the_invoice)
-
                 response = call.data
                 validate_response(response)
 
+                # Fetch the invoice number and cancel it
+                invoice_number = response.factura.numeroFactura
+                print (invoice_number)
+                call = self.face.cancel_invoice(invoice=str(invoice_number), reason="Incorrect submission")
+                response = call.data
+                validate_response(response)
                 print (response)
-                the_invoice_to_cancel = response
+                print (response.resultado.codigo)
+                print ()
 
                 # Validate the result of the send
-            """
