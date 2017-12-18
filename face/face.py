@@ -74,3 +74,20 @@ class FACe(object):
         call_result = serialize_object(self.client.service.enviarFactura(the_invoice))
         schema = ResponseSchema()
         return schema.load(call_result)
+
+
+    def cancel_invoice(self, invoice, reason):
+        """
+        Cancel an invoice and return the result
+
+        It uses the invoice registry number (the one reached at the send process) and the cancelation reason.
+        """
+        assert type(invoice) == str, "Invoice registry number must be an string"
+        assert type(reason) == str, "The reason must be an string"
+        the_invoice = {
+            "numeroRegistro": invoice,
+            "motivo": reason,
+        }
+        call_result = serialize_object(self.client.service.anularFactura(the_invoice))
+        schema = ResponseSchema()
+        return schema.load(call_result)
