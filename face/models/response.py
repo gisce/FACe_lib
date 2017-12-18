@@ -37,6 +37,10 @@ class Response(object):
     def __init__(self, resultado):
         self.resultado = resultado
 
+    def __getitem__(self, item):
+        return self.__dict__[item]
+
+
 class ResponseSchema(Schema):
     resultado = fields.Nested(ResultSchema, many=False)
 
