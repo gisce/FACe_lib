@@ -95,4 +95,19 @@ with description('A new'):
                 response = call.data
                 validate_response(response)
 
+                self.response = response
+
+                # Validate the result of the send
+
+
+            with it('action cancel invoice must work'):
+                the_invoice = TEST_INVOICE
+                call = self.face.send_invoice(invoice=the_invoice)
+
+                response = call.data
+                validate_response(response)
+
+                print (response)
+                the_invoice_to_cancel = response
+
                 # Validate the result of the send
