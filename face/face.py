@@ -4,7 +4,7 @@ import zeep
 from zeep.helpers import serialize_object
 import os.path
 import base64
-from .models import ResponseSchema
+from .models import ResponseSchema, InvoiceSchema
 
 # FACe environments
 FACE_ENVS = {
@@ -72,7 +72,8 @@ class FACe(object):
             }
         }
         call_result = serialize_object(self.client.service.enviarFactura(the_invoice))
-        schema = ResponseSchema()
+        print (call_result)
+        schema = InvoiceSchema()
         return schema.load(call_result)
 
 
@@ -89,5 +90,7 @@ class FACe(object):
             "motivo": reason,
         }
         call_result = serialize_object(self.client.service.anularFactura(the_invoice))
-        schema = ResponseSchema()
+
+        print (call_result)
+        schema = InvoiceSchema()
         return schema.load(call_result)
