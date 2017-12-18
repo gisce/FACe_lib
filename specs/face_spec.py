@@ -6,7 +6,6 @@ TEST_INVOICE = 'specs/factura-prueba-v1-2-0.xsig'
 
 
 models_by_base_field = {
-    "result": models.Result,
     "invoice": {
         "field": "factura",
         "response": models.invoice.Invoice,
@@ -58,7 +57,6 @@ with description('A new'):
 
     with context('FACe instance'):
         with context('initialization'):
-            """
             with it('must work'):
                 ""
                 face = FACe(**self.config)
@@ -114,7 +112,6 @@ with description('A new'):
 
                 # Validate the nifs
 
-            """
 
             with it('action send invoice must work'):
                 the_invoice = TEST_INVOICE
@@ -123,10 +120,6 @@ with description('A new'):
                 # Validate the response
                 response = call.data
                 validate_response(response, model="invoice")
-
-                print (response)
-                print (response.resultado.codigo)
-                print (response.factura.numeroFactura)
 
                 # Validate the result of the send
 
