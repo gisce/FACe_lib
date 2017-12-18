@@ -6,8 +6,9 @@ TEST_INVOICE = 'specs/factura-prueba-v1-2-0.xsig'
 
 
 models_by_base_field = {
-    "resultado": models.Result,
-    "factura": {
+    "result": models.Result,
+    "invoice": {
+        "field": "factura",
         "response": models.invoice.Invoice,
         "content": models.invoice.InvoiceResponse,
     },
@@ -23,17 +24,17 @@ def validate_response(response, model=None):
     - the status of a result (codigo=0 and descripcion="Correcto")
     """
 
-
     # Test provided model
     if model:
         expected_response_model = models_by_base_field[model]["response"]
         expected_content_model = models_by_base_field[model]["content"]
+        expected_field = models_by_base_field[model]["field"]
 
         # Validate the response
         assert isinstance(response, expected_response_model), "The response must be a `{}` instance".format(response, expected_response_model)
 
         # Validate the internal component of this response
-        component = response[model]
+        component = response[expected_field]
         assert isinstance(component, expected_content_model), "The data '{}' must be a `{}` instance".format(component, models_by_base_field[model])
 
     # Test default Response
@@ -45,8 +46,6 @@ def validate_response(response, model=None):
         assert isinstance(result, models.Result), "The result must be a `Result` instance"
         assert result.descripcion == "Correcto", "Result description '{}' must be 'Correcto'".format(result.descripcion)
         assert result.codigo == 0, "Result codigo '{}' must be '0'".format(result.codigo)
-
-
 
 
 with description('A new'):
@@ -123,7 +122,7 @@ with description('A new'):
 
                 # Validate the response
                 response = call.data
-                validate_response(response, model="factura")
+                validate_response(response, model="invoice")
 
                 print (response)
                 print (response.resultado.codigo)
