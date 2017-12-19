@@ -120,7 +120,7 @@ with description('A new'):
                 # Validate the response
                 response = call.data
                 validate_response(response, model="invoice")
-                assert response.resultado.codigo == 0, "Cancel a valid invoice must work"
+                assert response.is_ok, "Cancel a valid invoice must work"
 
 
             with it('action cancel invoice must work'):
@@ -136,7 +136,10 @@ with description('A new'):
 
                 response = call.data
                 validate_response(response, model="invoice")
-                assert response.resultado.codigo == 0, "Cancel a valid invoice must work"
+                
+                print ("codfigo", response.resultado.codigo) 
+                print (response.is_ok)
+                assert response.is_ok, "Cancel a valid invoice must work"
 
                 # Test invalid invoice_number do not works
                 invoice_number = "invalidFixNumber"
@@ -144,4 +147,6 @@ with description('A new'):
 
                 response = call.data
                 validate_response(response, model="invoice")
-                assert response.resultado.codigo != 0, "Cancel an invalid invoice must not work"
+                print ("codfigo", response.resultado.codigo) 
+                print (response.is_ok)
+                assert not response.is_ok, "Cancel an invalid invoice must not work"
