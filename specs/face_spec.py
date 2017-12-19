@@ -57,7 +57,6 @@ with description('A new'):
 
     with context('FACe instance'):
         with context('initialization'):
-            """
             with it('must work'):
                 ""
                 face = FACe(**self.config)
@@ -124,7 +123,6 @@ with description('A new'):
 
                 # Validate the result of the send
 
-            """
 
             with it('action cancel invoice must work'):
                 # Send a dummy invoice, just to fetch their invoice id
