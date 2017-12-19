@@ -12,19 +12,18 @@ It defines the "factura" response content and defines an extended Response with 
 """
 
 class InvoiceResponse(object):
-    def __init__(self, numeroRegistro, organoGestor, unidadTramitadora, oficinaContable, identificadorEmisor, numeroFactura, serieFactura, fechaRecepcion):
-        self.numeroRegistro = numeroRegistro
-        self.organoGestor = organoGestor
-        self.unidadTramitadora = unidadTramitadora
-        self.oficinaContable = oficinaContable
-        self.identificadorEmisor = identificadorEmisor
-        self.numeroFactura = numeroFactura
-        self.serieFactura = serieFactura
-        self.fechaRecepcion = fechaRecepcion
-
+    def __init__(self, **kwargs):
+        self.numeroRegistro = kwargs.get('numeroRegistro', None)
+        self.organoGestor = kwargs.get('organoGestor')
+        self.unidadTramitadora = kwargs.get('unidadTramitadora', None)
+        self.oficinaContable = kwargs.get('oficinaContable', None)
+        self.identificadorEmisor = kwargs.get('identificadorEmisor', None)
+        self.numeroFactura = kwargs.get('numeroFactura', None)
+        self.serieFactura = kwargs.get('serieFactura', None)
+        self.fechaRecepcion = kwargs.get('fechaRecepcion', None)
 
 class InvoiceResponseSchema(Schema):
-    numeroRegistro = fields.Integer()
+    numeroRegistro = fields.Integer(allow_none=True)
     organoGestor = fields.String()
     unidadTramitadora = fields.String(allow_none=True)
     oficinaContable = fields.String(allow_none=True)
@@ -41,9 +40,10 @@ class InvoiceResponseSchema(Schema):
         return InvoiceResponse(**data)
 
 
+
 class Invoice(Response):
     def __init__(self, resultado, factura):
-        super(Invoice, self).__init__(resultado)
+        super(Invoice, self).__init__(resultado=resultado)
         self.factura = factura
 
 class InvoiceSchema(ResponseSchema):
