@@ -140,3 +140,11 @@ with description('A new'):
                 response = call.data
                 validate_response(response, model="invoice")
                 assert response.resultado.codigo == 0, "Cancel a valid invoice must work"
+
+                # Test invalid invoice_number do not works
+                invoice_number = "invalidFixNumber"
+                call = self.face.cancel_invoice(invoice=str(invoice_number), reason="Incorrect submission")
+
+                response = call.data
+                validate_response(response, model="invoice")
+                assert response.resultado.codigo != 0, "Cancel an invalid invoice must not work"
