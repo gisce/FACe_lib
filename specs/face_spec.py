@@ -123,6 +123,7 @@ with description('A new'):
                 validate_response(response, model="invoice")
 
                 # Validate the result of the send
+
             """
 
             with it('action cancel invoice must work'):
@@ -130,16 +131,12 @@ with description('A new'):
                 the_invoice = TEST_INVOICE
                 call = self.face.send_invoice(invoice=the_invoice)
                 response = call.data
-                validate_response(response)
+                validate_response(response, model="invoice")
 
                 # Fetch the invoice number and cancel it
-                invoice_number = response.factura.numeroFactura
-                print (invoice_number)
+                invoice_number = response.factura.numeroRegistro
                 call = self.face.cancel_invoice(invoice=str(invoice_number), reason="Incorrect submission")
-                response = call.data
-                validate_response(response)
-                print (response)
-                print (response.resultado.codigo)
-                print ()
 
-                # Validate the result of the send
+                response = call.data
+                validate_response(response, model="invoice")
+                assert response.resultado.codigo == 0, "Cancel a valid invoice must work"
