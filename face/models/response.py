@@ -13,6 +13,8 @@ class Result(object):
         self.descripcion = descripcion
         self.codigoSeguimiento = codigoSeguimiento
 
+    def __getitem__(self, item):
+        return self.__dict__[item]
 
 class ResultSchema(Schema):
     codigo = fields.Integer()
@@ -39,7 +41,16 @@ class Response(object):
 
     def __getitem__(self, item):
         return self.__dict__[item]
-
+    
+    @property
+    def is_ok(self):
+        """
+        Clarify if a response includes an OK result code
+        """
+        if self.resultado and str(self.resultado.codigo) == 100:
+            return True
+        return False
+        
 
 class ResponseSchema(Schema):
     resultado = fields.Nested(ResultSchema, many=False)
