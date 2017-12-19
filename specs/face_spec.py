@@ -120,8 +120,7 @@ with description('A new'):
                 # Validate the response
                 response = call.data
                 validate_response(response, model="invoice")
-
-                # Validate the result of the send
+                assert response.resultado.codigo == 0, "Cancel a valid invoice must work"
 
 
             with it('action cancel invoice must work'):
