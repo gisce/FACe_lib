@@ -45,13 +45,16 @@ class FACe(object):
             plugins=[FACe_signer(self.certificate, debug=self.debug)]
         )
 
+    def serialize_response(self, response):
+        return serialize_object(response)
+
     def list_nifs(self):
         """
         List NIFs method.
 
         Return all the available NIFs
         """
-        call_result = serialize_object(self.client.service.consultarNIFs())
+        call_result = self.serialize_response(self.client.service.consultarNIFs())
 
         schema = ResponseSchema()
         return schema.load(call_result)
@@ -71,7 +74,7 @@ class FACe(object):
                 "mime": "application/xml",
             }
         }
-        call_result = serialize_object(self.client.service.enviarFactura(the_invoice))
+        call_result = self.serialize_response(self.client.service.enviarFactura(the_invoice))
         schema = InvoiceSchema()
         return schema.load(call_result)
 
@@ -84,12 +87,12 @@ class FACe(object):
         """
         assert type(invoice) == str, "Invoice registry number must be an string"
         assert type(reason) == str, "The reason must be an string"
+
         the_invoice = {
-            "numeroRegistro": "invoice",
-            "motivo": "reason",
+            "numeroRegistro": invoice,
+            "motivo": reason,
         }
 
         call_result = serialize_object(self.client.service.anularFactura(**the_invoice))
-
         schema = InvoiceSchema()
         return schema.load(call_result)
