@@ -89,11 +89,7 @@ class FACe(object):
             "motivo": "reason",
         }
 
-        print (self.client.service.anularFactura(the_invoice))
-        """
-        call_result = serialize_object(self.client.service.anularFactura(the_invoice))
+        call_result = serialize_object(self.client.service.anularFactura(**the_invoice))
 
-        print (call_result)
         schema = InvoiceSchema()
         return schema.load(call_result)
-        """
