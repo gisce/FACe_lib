@@ -22,6 +22,7 @@ class InvoiceResponse(object):
         self.serieFactura = kwargs.get('serieFactura', None)
         self.fechaRecepcion = kwargs.get('fechaRecepcion', None)
 
+
 class InvoiceResponseSchema(Schema):
     numeroRegistro = fields.Integer(allow_none=True)
     organoGestor = fields.String()
