@@ -136,8 +136,8 @@ with description('A new'):
 
                 response = call.data
                 validate_response(response, model="invoice")
-                
-                print ("codfigo", response.resultado.codigo) 
+
+                print ("codfigo", response.resultado.codigo)
                 print (response.is_ok)
                 assert response.is_ok, "Cancel a valid invoice must work"
 
@@ -147,6 +147,15 @@ with description('A new'):
 
                 response = call.data
                 validate_response(response, model="invoice")
-                print ("codfigo", response.resultado.codigo) 
+                print ("codfigo", response.resultado.codigo)
                 print (response.is_ok)
                 assert not response.is_ok, "Cancel an invalid invoice must not work"
+
+
+            with it('action list administrations must work'):
+                call = self.face.list_administrations()
+
+                # Validate the response
+                response = call.data
+                validate_response(response, model="administrations")
+                assert response.is_ok, "List administrations must work"
