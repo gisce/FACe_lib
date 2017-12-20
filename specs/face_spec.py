@@ -21,6 +21,11 @@ models_by_base_field = {
         "response": models.administrations.AdministrationsList,
         "content": list,
     },
+    "administration": {
+        "field": 0,
+        "response": list,
+        "content": models.administrations.Administration,
+    },
 }
 
 def validate_response(response, model=None):
@@ -40,7 +45,7 @@ def validate_response(response, model=None):
         expected_field = models_by_base_field[model]["field"]
 
         # Validate the response
-        assert isinstance(response, expected_response_model), "The response must be a `{}` instance".format(response, expected_response_model)
+        assert isinstance(response, expected_response_model), "The response must be a `{}` instance".format(type(response), expected_response_model)
 
         # Validate the internal component of this response
         component = response[expected_field]
@@ -173,4 +178,5 @@ with description('A new'):
 
                 validate_response(response, model="administrations")
                 validate_response(response['administraciones'], model="administrations_list")
+                validate_response(response['administraciones']['administracion'], model="administration")
                 #assert response.is_ok, "List administrations must work"
