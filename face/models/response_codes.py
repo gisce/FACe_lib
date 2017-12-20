@@ -167,17 +167,17 @@ RESULT_CODES = {
         "scope": "invoice",
     },
     "405": {
-        "description": "No existe el código de estado %status%",
+        "description": "No existe el código de estado $status$",
         "error": True,
         "scope": "invoice",
     },
     "406": {
-        "description": "La única transición posible es a %status%",
+        "description": "La única transición posible es a $status$",
         "error": True,
         "scope": "invoice",
     },
     "407": {
-        "description": "Transición no disponible COD: %cod_estado_actual% => COD: %cod_estado_siguiente%",
+        "description": "Transición no disponible COD: $cod_estado_actual$ => COD: $cod_estado_siguiente$",
         "error": True,
         "scope": "invoice",
     },
@@ -187,17 +187,17 @@ RESULT_CODES = {
         "scope": "invoice",
     },
     "409": {
-        "description": "No existe o inactiva el Órgano Gestor asociado al código %OG%",
+        "description": "No existe o inactiva el Órgano Gestor asociado al código $OG$",
         "error": True,
         "scope": "invoice",
     },
     "410": {
-        "description": "No existe o inactiva la Unidad Tramitadora asociado al código %UT%",
+        "description": "No existe o inactiva la Unidad Tramitadora asociado al código $UT$",
         "error": True,
         "scope": "invoice",
     },
     "411": {
-        "description": "No existe o inactiva la Oficina Contable asociado al código "%OC%"",
+        "description": "No existe o inactiva la Oficina Contable asociado al código $OC$",
         "error": True,
         "scope": "invoice",
     },
@@ -212,12 +212,12 @@ RESULT_CODES = {
         "scope": "invoice",
     },
     "414": {
-        "description": "Ya existe una factura con número %numero%%registro%",
+        "description": "Ya existe una factura con número $numero$$registro$",
         "error": True,
         "scope": "invoice",
     },
     "415": {
-        "description": "Ya existe una factura con serie %serie%, número %numero% y fecha de expedición %fecha_exp%%registro%",
+        "description": "Ya existe una factura con serie $serie$, número $numero$ y fecha de expedición $fecha_exp$$registro$",
         "error": True,
         "scope": "invoice",
     },
@@ -227,7 +227,7 @@ RESULT_CODES = {
         "scope": "invoice",
     },
     "417": {
-        "description": "No se ha encontrado código en %centro_administrativo%",
+        "description": "No se ha encontrado código en $centro_administrativo$",
         "error": True,
         "scope": "invoice",
     },
@@ -247,7 +247,7 @@ RESULT_CODES = {
         "scope": "invoice",
     },
     "421": {
-        "description": "El tipo de %emisor-receptor-tercero% es incorrecto, especificación incorrecta para persona %juridica-fisica%",
+        "description": "El tipo de $emisor-receptor-tercero$ es incorrecto, especificación incorrecta para persona $juridica-fisica$",
         "error": True,
         "scope": "invoice",
     },
@@ -272,7 +272,7 @@ RESULT_CODES = {
         "scope": "invoice",
     },
     "426": {
-        "description": "Para pago por %tipo_pago% es obligatorio incluir el IBAN",
+        "description": "Para pago por $tipo_pago$ es obligatorio incluir el IBAN",
         "error": True,
         "scope": "invoice",
     },
@@ -302,7 +302,7 @@ RESULT_CODES = {
         "scope": "invoice",
     },
     "432": {
-        "description": "La factura ha sido firmada por un certificado de clase %clase_certificado%, esta clase no está admitida para firma de facturas",
+        "description": "La factura ha sido firmada por un certificado de clase $clase_certificado$, esta clase no está admitida para firma de facturas",
         "error": True,
         "scope": "invoice",
     },
@@ -322,12 +322,12 @@ RESULT_CODES = {
         "scope": "invoice",
     },
     "437": {
-        "description": "No se admiten facturas con extensiones para la Oficina Contable %codigo_dir%",
+        "description": "No se admiten facturas con extensiones para la Oficina Contable $codigo_dir$",
         "error": True,
         "scope": "invoice",
     },
     "438": {
-        "description": "La entrega de la factura ha sido firmada por un certificado de clase %clase_certificado%, esta clase no está admitida para firma de entrega de facturas",
+        "description": "La entrega de la factura ha sido firmada por un certificado de clase $clase_certificado$, esta clase no está admitida para firma de entrega de facturas",
         "error": True,
         "scope": "invoice",
     },
@@ -352,7 +352,7 @@ RESULT_CODES = {
         "scope": "invoice",
     },
     "443": {
-        "description": "La factura rectificativa con formato incorrecto%detail%",
+        "description": "La factura rectificativa con formato incorrecto $detail$",
         "error": True,
         "scope": "invoice",
     },
@@ -377,7 +377,7 @@ RESULT_CODES = {
         "scope": "invoice",
     },
     "900": {
-        "description": "Se ha excedido del límite de caracteres %extra%",
+        "description": "Se ha excedido del límite de caracteres $extra$",
         "error": True,
         "scope": "invoice",
     },
@@ -390,5 +390,11 @@ RESULT_CODES = {
         "error": True,
         "scope": "other",
     },
-
 }
+
+
+# Add good results
+RESULT_CODES.update({'ok': [ code for code in RESULT_CODES if RESULT_CODES[code]['error'] == False ]})
+
+# Add error results
+RESULT_CODES.update({'ko': [ code for code in RESULT_CODES if code != "ok" and RESULT_CODES[code]['error'] == True ]})
