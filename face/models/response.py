@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from marshmallow import fields, Schema, post_load
 
+import response_codes
 """
 FACe Result
 
 Integrates the code, a description and a tracking code
 """
-
 class Result(object):
     def __init__(self, codigo, descripcion, codigoSeguimiento):
         self.codigo = codigo
@@ -15,6 +15,9 @@ class Result(object):
 
     def __getitem__(self, item):
         return self.__dict__[item]
+
+    def is_good_code(self):
+        return True if self.codigo in response_codes.RESULT_CODES else False
 
 class ResultSchema(Schema):
     codigo = fields.Integer()
@@ -41,7 +44,7 @@ class Response(object):
 
     def __getitem__(self, item):
         return self.__dict__[item]
-    
+
     @property
     def is_ok(self):
         """
@@ -50,7 +53,7 @@ class Response(object):
         if self.resultado and str(self.resultado.codigo) == 100:
             return True
         return False
-        
+
 
 class ResponseSchema(Schema):
     resultado = fields.Nested(ResultSchema, many=False)
