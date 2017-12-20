@@ -11,6 +11,8 @@ models_by_base_field = {
         "response": models.invoice.Invoice,
         "content": models.invoice.InvoiceResponse,
     },
+
+    # Administrations schema
     "administrations": {
         "field": "administraciones",
         "response": models.administrations.Administrations,
@@ -28,6 +30,11 @@ models_by_base_field = {
     },
     "administration_code": {
         "field": 'codigo',
+        "response": models.administrations.Administration,
+        "content": unicode,
+    },
+    "administration_name": {
+        "field": 'nombre',
         "response": models.administrations.Administration,
         "content": unicode,
     },
@@ -185,4 +192,5 @@ with description('A new'):
                 validate_response(response['administraciones'], model="administrations_list")
                 validate_response(response['administraciones']['administracion'], model="administration")
                 validate_response(response['administraciones']['administracion'][0], model="administration_code")
+                validate_response(response['administraciones']['administracion'][0], model="administration_name")
                 #assert response.is_ok, "List administrations must work"
