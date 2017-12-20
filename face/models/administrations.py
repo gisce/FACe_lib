@@ -32,7 +32,7 @@ class Administrations(Response):
         super(Administrations, self).__init__(resultado=resultado)
         self.administraciones = administraciones
 
-class AdministrationSchema(ResponseSchema):
+class AdministrationsSchema(ResponseSchema):
     administraciones = fields.Nested(AdministrationSchema, many=False)
 
     @post_load
