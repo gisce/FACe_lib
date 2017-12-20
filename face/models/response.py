@@ -17,11 +17,18 @@ class Result(object):
         return self.__dict__[item]
 
     @property
+    def is_performed(self):
+        """
+        Review if the Result was performed or not
+        """
+        return True if self.codigo != None else False
+
+    @property
     def is_good_code(self):
         """
         Review if the Result is OK or KO based on FACe's result codes
         """
-        return True if str(self.codigo) in response_codes.RESULT_CODES['ok'] else False
+        return True if self.is_performed and str(self.codigo) in response_codes.RESULT_CODES['ok'] else False
 
 class ResultSchema(Schema):
     codigo = fields.Integer()
