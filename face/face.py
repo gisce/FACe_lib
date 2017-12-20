@@ -78,7 +78,6 @@ class FACe(object):
         schema = InvoiceSchema()
         return schema.load(call_result)
 
-
     def cancel_invoice(self, invoice, reason):
         """
         Cancel an invoice and return the result
@@ -95,4 +94,15 @@ class FACe(object):
 
         call_result = serialize_object(self.client.service.anularFactura(**the_invoice))
         schema = InvoiceSchema()
+        return schema.load(call_result)
+
+    def list_administrations(self):
+        """
+        List administrations
+
+        It list all available administrations
+        """
+
+        call_result = serialize_object(self.client.service.consultarAdministraciones())
+        schema = ResponseSchema()
         return schema.load(call_result)
