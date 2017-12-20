@@ -12,6 +12,7 @@ class Result(object):
         self.codigo = codigo
         self.descripcion = descripcion
         self.codigoSeguimiento = codigoSeguimiento
+        self.error = not self.is_good_code
 
     def __getitem__(self, item):
         return self.__dict__[item]
@@ -61,7 +62,7 @@ class Response(object):
         """
         Clarify if a response includes an OK result code
         """
-        return self.resultado.is_good_code
+        return not self.resultado.error
 
 
 class ResponseSchema(Schema):
