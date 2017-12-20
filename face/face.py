@@ -104,6 +104,6 @@ class FACe(object):
         """
 
         call_result = serialize_object(self.client.service.consultarAdministraciones())
-        print (call_result)
+
         schema = AdministrationsSchema()
         return schema.load(call_result)

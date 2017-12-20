@@ -11,19 +11,46 @@ It defines the "factura" response content and defines an extended Response with 
 - Invoice and InvoiceSchema extends the base Response to integrate the "factura" component
 """
 
-class AdministrationsResponse(object):
+class Administration(object):
     def __init__(self, **kwargs):
-        self.administraciones = kwargs.get('organoGestor')
+        self.codigo = kwargs.get('codigo', None)
+        self.nombre = kwargs.get('nombre', None)
 
-class AdministrationsResponseSchema(Schema):
-    administraciones = fields.Dict()
+    def __getitem__(self, item):
+        return self.__dict__[item]
+
+class AdministrationSchema(Schema):
+    codigo = fields.String()
+    nombre = fields.String()
 
     @post_load
     def create_resultado(self, data):
         """
-        Return an AdministrationsResponse instance for deserializing ResultSchema
+        Return an Administration instance for deserializing ResultSchema
         """
-        return AdministrationsResponse(**data)
+        return Administration(**data)
+
+
+
+"""
+Dummy nested model and schema desired to handle the non-sense "administracion" list inside the SOAP response
+"""
+class AdministrationsList(object):
+    def __init__(self, **kwargs):
+        self.administracion = kwargs.get('administracion', None)
+
+    def __getitem__(self, item):
+        return self.__dict__[item]
+
+class AdministrationsListSchema(Schema):
+    administracion = fields.List(fields.Nested(AdministrationSchema))
+
+    @post_load
+    def create_resultado(self, data):
+        """
+        Return an AdministrationResponse instance for deserializing ResultSchema
+        """
+        return AdministrationsList  (**data)
 
 
 
@@ -33,7 +60,7 @@ class Administrations(Response):
         self.administraciones = administraciones
 
 class AdministrationsSchema(ResponseSchema):
-    administraciones = fields.Nested(AdministrationsResponseSchema, many=False)
+    administraciones = fields.Nested(AdministrationsListSchema)
 
     @post_load
     def create_response(self, data):
