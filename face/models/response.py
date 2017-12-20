@@ -16,8 +16,12 @@ class Result(object):
     def __getitem__(self, item):
         return self.__dict__[item]
 
+    @property
     def is_good_code(self):
-        return True if self.codigo in response_codes.RESULT_CODES else False
+        """
+        Review if the Result is OK or KO based on FACe's result codes
+        """
+        return True if str(self.codigo) in response_codes.RESULT_CODES['ok'] else False
 
 class ResultSchema(Schema):
     codigo = fields.Integer()
@@ -50,9 +54,7 @@ class Response(object):
         """
         Clarify if a response includes an OK result code
         """
-        if self.resultado and str(self.resultado.codigo) == 100:
-            return True
-        return False
+        return self.resultado.is_good_code
 
 
 class ResponseSchema(Schema):
