@@ -4,7 +4,7 @@ import zeep
 from zeep.helpers import serialize_object
 import os.path
 import base64
-from .models import ResponseSchema, AdministrationsSchema
+from .models import ResponseSchema, AdministrationsSchema, InvoiceSchema
 
 # FACe environments
 FACE_ENVS = {

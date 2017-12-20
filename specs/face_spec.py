@@ -84,9 +84,7 @@ with description('A new'):
 
     with context('FACe instance'):
         with context('initialization'):
-            """
             with it('must work'):
-                ""
                 face = FACe(**self.config)
 
                 config = dict(self.config)
@@ -164,21 +162,16 @@ with description('A new'):
 
                 response = call.data
                 validate_response(response, model="invoice")
-
-                print ("codfigo", response.resultado.codigo)
-                print (response.is_ok)
                 assert response.is_ok, "Cancel a valid invoice must work"
 
-                # Test invalid invoice_number do not works
+                # Test that an invalid invoice_number do not works
                 invoice_number = "invalidFixNumber"
                 call = self.face.cancel_invoice(invoice=str(invoice_number), reason="Incorrect submission")
 
                 response = call.data
                 validate_response(response, model="invoice")
-                print ("codfigo", response.resultado.codigo)
-                print (response.is_ok)
                 assert not response.is_ok, "Cancel an invalid invoice must not work"
-            """
+
 
             with it('action list administrations must work'):
                 call = self.face.list_administrations()
