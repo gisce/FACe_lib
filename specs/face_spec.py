@@ -183,14 +183,12 @@ with description('A new'):
             with it('action list administrations must work'):
                 call = self.face.list_administrations()
 
-                print ("error", call.errors)
                 # Validate the response
                 response = call.data
-                print ("response", response.administraciones.administracion[0].codigo)
+                assert response.is_ok, "List administrations must work"
 
                 validate_response(response, model="administrations")
                 validate_response(response['administraciones'], model="administrations_list")
                 validate_response(response['administraciones']['administracion'], model="administration")
                 validate_response(response['administraciones']['administracion'][0], model="administration_code")
                 validate_response(response['administraciones']['administracion'][0], model="administration_name")
-                #assert response.is_ok, "List administrations must work"
