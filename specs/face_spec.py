@@ -26,6 +26,11 @@ models_by_base_field = {
         "response": list,
         "content": models.administrations.Administration,
     },
+    "administration_code": {
+        "field": 'codigo',
+        "response": models.administrations.Administration,
+        "content": unicode,
+    },
 }
 
 def validate_response(response, model=None):
@@ -179,4 +184,5 @@ with description('A new'):
                 validate_response(response, model="administrations")
                 validate_response(response['administraciones'], model="administrations_list")
                 validate_response(response['administraciones']['administracion'], model="administration")
+                validate_response(response['administraciones']['administracion'][0], model="administration_code")
                 #assert response.is_ok, "List administrations must work"
