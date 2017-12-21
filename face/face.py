@@ -119,7 +119,5 @@ class FACe(object):
 
         call_result = serialize_object(self.client.service.consultarEstados())
 
-        print (call_result)
-
         schema = StatusesSchema()
         return schema.load(call_result)

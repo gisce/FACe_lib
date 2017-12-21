@@ -45,7 +45,6 @@ class StatusListSchema(Schema):
 
     @post_load
     def create_resultado(self, data):
-        print (data['estado'][0].descripcion)
         """
         Return an StatusList instance for deserializing StatusListSchema
         """
