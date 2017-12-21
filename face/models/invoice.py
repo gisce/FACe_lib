@@ -3,6 +3,9 @@ from marshmallow import fields, Schema, post_load
 
 from .response import Response, ResponseSchema
 
+# Load the default status codes
+import face.codes as codes
+
 """
 FACe Invoice models and schemas
 
@@ -21,7 +24,7 @@ class InvoiceState(object):
         self.motivo = kwargs.get('motivo', None)
 
 class InvoiceStateSchema(Schema):
-    codigo = fields.String(allow_none=True)
+    codigo = fields.String(validate=codes.status.validator)
     descripcion = fields.String(allow_none=True)
     motivo = fields.String(allow_none=True)
 
