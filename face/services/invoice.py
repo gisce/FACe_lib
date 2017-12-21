@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from .service import SOAP_Service
 
-class Invoice(SOAP_service):
+class Invoice(SOAP_Service):
     """
     Integrate all invoice-related methods
     """
