@@ -11,6 +11,32 @@ It defines the "factura" response content and defines an extended Response with 
 - Invoice and InvoiceSchema extends the base Response to integrate the "factura" component
 """
 
+
+"""
+Tramitacion, introduced by consultarFactura response as a part of "Factura" response
+"""
+class Tramitacion(object):
+    def __init__(self, **kwargs):
+        self.codigo_estado = kwargs.get('codigo_estado', None)
+        self.descripcion_estado = kwargs.get('descripcion_estado', None)
+        self.motivo_estado = kwargs.get('motivo_estado', None)
+
+class TramitacionSchema(Schema):
+    codigo_estado = fields.String(allow_none=True)
+    descripcion_estado = fields.String(allow_none=True)
+    motivo_estado = fields.String(allow_none=True)
+
+    @post_load
+    def create_tramitacion(self, data):
+        """
+        Return a Tramitacion instance to deserialize the TramitacionSchema
+        """
+        return Tramitacion(**data)
+
+
+
+
+
 class InvoiceResponse(object):
     def __init__(self, **kwargs):
         self.numeroRegistro = kwargs.get('numeroRegistro', None)
