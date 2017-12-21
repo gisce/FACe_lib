@@ -36,25 +36,6 @@ class InvoiceStateSchema(Schema):
         return InvoiceState(**data)
 
 
-"""
-Tramitacion, introduced by consultarFactura response as a part of "Factura" response
-"""
-class Tramitacion(InvoiceState):
-    def __init__(self, **kwargs):
-        super(Tramitacion, self).__init__(**kwargs)
-
-class TramitacionSchema(InvoiceStateSchema):
-
-    @post_load
-    def create_tramitacion(self, data):
-        """
-        Return a Tramitacion instance to deserialize the TramitacionSchema
-        """
-        return Tramitacion(**data)
-
-
-
-
 
 class InvoiceResponse(object):
     def __init__(self, **kwargs):
@@ -80,7 +61,7 @@ class InvoiceResponseSchema(Schema):
     fechaRecepcion = fields.String(allow_none=True)
 
     # needed for consultarFactura
-    tramitacion = fields.Nested(TramitacionSchema, many=False, allow_none=True)
+    tramitacion = fields.Nested(InvoiceStateSchema, many=False, allow_none=True)
 
     @post_load
     def create_resultado(self, data):
