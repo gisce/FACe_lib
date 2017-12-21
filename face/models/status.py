@@ -43,6 +43,31 @@ STATUS_CODES = {
         "scope": "tramitacion",
     },
 
+    # Anulation status
+    "4100": {
+        "nombre": "No solicitada anulación",
+        "description": "No solicitada anulación",
+        "error": False,
+        "scope": "tramitacion",
+    },
+    "4200": {
+        "nombre": "Solicitada anulación",
+        "description": "Solicitada anulación",
+        "error": False,
+        "scope": "tramitacion",
+    },
+    "4300": {
+        "nombre": "Aceptada anulación",
+        "description": "Aceptada anulación",
+        "error": False,
+        "scope": "tramitacion",
+    },
+    "4400": {
+        "nombre": "Solicitud de anulación",
+        "description": "Rechazada anulación",
+        "error": True,
+        "scope": "tramitacion",
+    },
 }
 
 
