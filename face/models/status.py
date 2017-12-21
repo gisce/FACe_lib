@@ -45,10 +45,11 @@ class StatusListSchema(Schema):
 
     @post_load
     def create_resultado(self, data):
+        print (data['estado'][0].descripcion)
         """
-        Return an AdministrationResponse instance for deserializing ResultSchema
+        Return an StatusList instance for deserializing StatusListSchema
         """
-        return StatusListSchema(**data)
+        return StatusList(**data)
 
 
 
@@ -58,11 +59,11 @@ class Statuses(Response):
         self.estados = estados
 
 class StatusesSchema(ResponseSchema):
-    estados = fields.Nested(AdministrationsListSchema)
+    estados = fields.Nested(StatusListSchema)
 
     @post_load
     def create_response(self, data):
         """
         Return a Response instance while deserializing ResponseSchema
         """
-        return Administrations(**data)
+        return Statuses(**data)

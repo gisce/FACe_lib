@@ -4,7 +4,7 @@ import zeep
 from zeep.helpers import serialize_object
 import os.path
 import base64
-from .models import ResponseSchema, AdministrationsSchema, InvoiceSchema
+from .models import ResponseSchema, AdministrationsSchema, InvoiceSchema, StatusesSchema
 
 # FACe environments
 FACE_ENVS = {
@@ -119,5 +119,7 @@ class FACe(object):
 
         call_result = serialize_object(self.client.service.consultarEstados())
 
-        schema = ResponseSchema()
+        print (call_result)
+
+        schema = StatusesSchema()
         return schema.load(call_result)
