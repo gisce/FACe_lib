@@ -20,7 +20,7 @@ class Status(object):
         return self.__dict__[item]
 
 class StatusSchema(Schema):
-    codigo = fields.String()
+    codigo = fields.String(validate=status_codes.validator)
     descripcion = fields.String()
     nombre = fields.String()
 
