@@ -1,4 +1,20 @@
 # -*- coding: utf-8 -*-
+from marshmallow import ValidationError
+
+"""
+FACe available result codes
+"""
+
+def validator(code):
+    """
+    Result code validator
+    """
+    if code==None:
+        raise ValidationError("Code can't be empty")
+
+    if str(code) not in RESULT_CODES:
+        raise ValidationError("Code '{}' is unknown".format(code))
+
 
 RESULT_CODES = {
     "0": {
