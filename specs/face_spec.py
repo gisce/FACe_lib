@@ -175,7 +175,7 @@ with description('A new'):
 
             with it('action send invoice must work'):
                 the_invoice = TEST_INVOICE
-                call = self.face.send_invoice(invoice=the_invoice)
+                call = self.face.invoices.send(invoice=the_invoice)
 
                 # Validate the response
                 response = call.data
@@ -186,13 +186,13 @@ with description('A new'):
             with it('action cancel invoice must work'):
                 # Send a dummy invoice, just to fetch their invoice id
                 the_invoice = TEST_INVOICE
-                call = self.face.send_invoice(invoice=the_invoice)
+                call = self.face.invoices.send(invoice=the_invoice)
                 response = call.data
                 validate_response(response, model="invoice")
 
                 # Fetch the invoice number and cancel it
                 invoice_number = response.factura.numeroRegistro
-                call = self.face.cancel_invoice(invoice=str(invoice_number), reason="Incorrect submission")
+                call = self.face.invoices.cancel(invoice=str(invoice_number), reason="Incorrect submission")
 
                 response = call.data
                 validate_response(response, model="invoice")
@@ -200,7 +200,7 @@ with description('A new'):
 
                 # Test that an invalid invoice_number do not works
                 invoice_number = "invalidFixNumber"
-                call = self.face.cancel_invoice(invoice=str(invoice_number), reason="Incorrect submission")
+                call = self.face.invoices.cancel(invoice=str(invoice_number), reason="Incorrect submission")
 
                 response = call.data
                 validate_response(response, model="invoice")
@@ -220,6 +220,7 @@ with description('A new'):
                 validate_response(response['administraciones']['administracion'][0], model="administration_code")
                 validate_response(response['administraciones']['administracion'][0], model="administration_name")
 
+
             with it('action list invoice states must work'):
                 call = self.face.list_invoice_states()
 
@@ -233,3 +234,22 @@ with description('A new'):
                 validate_response(response['estados']['estado'][0], model="status_code")
                 validate_response(response['estados']['estado'][0], model="status_name")
                 validate_response(response['estados']['estado'][0], model="status_description")
+
+            """
+
+            with it('action list invoice states must work'):
+                call = self.face.invoice.list_states()
+
+                # Validate the response
+                response = call.data
+                assert response.is_ok, "List invoices states must work"
+
+                validate_response(response, model="statuses")
+                validate_response(response['estados'], model="statuses_list")
+                validate_response(response['estados']['estado'], model="status")
+                validate_response(response['estados']['estado'][0], model="status_code")
+                validate_response(response['estados']['estado'][0], model="status_name")
+                validate_response(response['estados']['estado'][0], model="status_description")
+
+
+            """
