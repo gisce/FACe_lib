@@ -48,6 +48,7 @@ class InvoiceResponse(object):
         self.serieFactura = kwargs.get('serieFactura', None)
         self.fechaRecepcion = kwargs.get('fechaRecepcion', None)
         self.tramitacion = kwargs.get('tramitacion', None)
+        self.anulacion = kwargs.get('anulacion', None)
 
 
 class InvoiceResponseSchema(Schema):
@@ -62,6 +63,7 @@ class InvoiceResponseSchema(Schema):
 
     # needed for consultarFactura
     tramitacion = fields.Nested(InvoiceStateSchema, many=False, allow_none=True)
+    anulacion = fields.Nested(InvoiceStateSchema, many=False, allow_none=True)
 
     @post_load
     def create_resultado(self, data):
