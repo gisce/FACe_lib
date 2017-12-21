@@ -12,14 +12,6 @@ FACE_ENVS = {
     'staging': "https://se-face-webservice.redsara.es/facturasspp2?wsdl",
 }
 
-class SOAP_service(object):
-    def __init__(self, service):
-        self.service = service
-
-    def serialize_response(self, response):
-        return serialize_object(response)
-
-
 class Invoice(SOAP_service):
     """
     Integrate all invoice-related methods
