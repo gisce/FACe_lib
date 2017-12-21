@@ -12,6 +12,7 @@ models_by_base_field = {
         "content": models.invoice.InvoiceResponse,
     },
 
+
     # Administrations schema
     "administrations": {
         "field": "administraciones",
@@ -36,6 +37,39 @@ models_by_base_field = {
     "administration_name": {
         "field": 'nombre',
         "response": models.administrations.Administration,
+        "content": unicode,
+    },
+
+
+    # Statuses schema
+    "statuses": {
+        "field": "estados",
+        "response": models.status.Statuses,
+        "content": models.status.StatusList,
+    },
+    "statuses_list": {
+        "field": "estado",
+        "response": models.status.StatusList,
+        "content": list,
+    },
+    "status": {
+        "field": 0,
+        "response": list,
+        "content": models.status.Status,
+    },
+    "status_code": {
+        "field": 'codigo',
+        "response": models.status.Status,
+        "content": unicode,
+    },
+    "status_name": {
+        "field": 'nombre',
+        "response": models.status.Status,
+        "content": unicode,
+    },
+    "status_description": {
+        "field": 'descripcion',
+        "response": models.status.Status,
         "content": unicode,
     },
 }
@@ -194,3 +228,10 @@ with description('A new'):
                 # Validate the response
                 response = call.data
                 assert response.is_ok, "List invoices states must work"
+
+                validate_response(response, model="statuses")
+                validate_response(response['estados'], model="statuses_list")
+                validate_response(response['estados']['estado'], model="status")
+                validate_response(response['estados']['estado'][0], model="status_code")
+                validate_response(response['estados']['estado'][0], model="status_name")
+                validate_response(response['estados']['estado'][0], model="status_description")
