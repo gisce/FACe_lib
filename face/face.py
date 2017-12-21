@@ -2,8 +2,7 @@
 from FACe_signer import FACe_signer
 import zeep
 import os.path
-from .models import ResponseSchema, AdministrationsSchema, InvoiceSchema, StatusesSchema
-from .services import SOAP_Service, Invoice, NIF, Administration
+from .services import Invoice, NIF, Administration
 
 # FACe environments
 FACE_ENVS = {
@@ -11,7 +10,7 @@ FACE_ENVS = {
     'staging': "https://se-face-webservice.redsara.es/facturasspp2?wsdl",
 }
 
-class FACe(SOAP_Service):
+class FACe(object):
     """
     FACe object
 
