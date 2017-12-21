@@ -50,6 +50,8 @@ class InvoiceResponse(object):
         self.tramitacion = kwargs.get('tramitacion', None)
         self.anulacion = kwargs.get('anulacion', None)
 
+    def __getitem__(self, item):
+        return self.__dict__[item]
 
 class InvoiceResponseSchema(Schema):
     numeroRegistro = fields.Integer(allow_none=True)
