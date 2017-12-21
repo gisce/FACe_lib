@@ -118,6 +118,7 @@ with description('A new'):
 
     with context('FACe instance'):
         with context('initialization'):
+            """
             with it('must work'):
                 face = FACe(**self.config)
 
@@ -237,19 +238,20 @@ with description('A new'):
 
             """
 
-            with it('action list invoice states must work'):
-                call = self.face.invoices.list_states()
+            with it('action fetch invoice state must work'):
+                # Send a dummy invoice, just to fetch their invoice id
+                the_invoice = TEST_INVOICE
+                call = self.face.invoices.send(invoice=the_invoice)
+                response = call.data
+                registryNumber = response.factura.numeroRegistro
+
+                # Fetch invoice info
+                call = self.face.invoices.fetch(invoice=registryNumber)
 
                 # Validate the response
                 response = call.data
-                assert response.is_ok, "List invoices states must work"
+                assert response.is_ok, "List invoice state must work"
 
-                validate_response(response, model="statuses")
-                validate_response(response['estados'], model="statuses_list")
-                validate_response(response['estados']['estado'], model="status")
-                validate_response(response['estados']['estado'][0], model="status_code")
-                validate_response(response['estados']['estado'][0], model="status_name")
-                validate_response(response['estados']['estado'][0], model="status_description")
-
-
-            """
+                validate_response(response, model="invoice")
+                assert response.factura.tramitacion, "Response must integrate a valid tramitacion field inside inside the invoice"
+                assert response.factura.tramitacion.codigo, "Response must integrate a valid tramitacion.codigo field ('{}')".format(response.factura.tramitacion.codigo)
