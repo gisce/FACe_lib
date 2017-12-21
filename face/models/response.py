@@ -2,7 +2,7 @@
 from marshmallow import fields, Schema, post_load
 
 # Load the default result codes
-from ..codes import result_codes
+import face.codes as codes
 
 
 """
@@ -32,10 +32,10 @@ class Result(object):
         """
         Review if the Result is OK or KO based on FACe's result codes
         """
-        return True if self.is_performed and str(self.codigo) in result_codes.RESULT_CODES['ok'] else False
+        return True if self.is_performed and str(self.codigo) in codes.result.RESULT_CODES['ok'] else False
 
 class ResultSchema(Schema):
-    codigo = fields.Integer(validate=result_codes.validator)
+    codigo = fields.Integer(validate=codes.result.validator)
     descripcion = fields.String()
     codigoSeguimiento = fields.String(allow_none=True)
 
