@@ -2,7 +2,7 @@
 from marshmallow import fields, Schema, post_load
 
 # Load the default result codes
-from face.models.codes import result_codes
+from ..codes import result_codes
 
 
 """
