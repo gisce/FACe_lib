@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .service import SOAP_Service
-from .models import ResponseSchema
+from ..models import ResponseSchema
 
 class NIF(SOAP_Service):
     """
