@@ -4,6 +4,7 @@ import zeep
 import os.path
 import base64
 from .models import ResponseSchema, AdministrationsSchema, InvoiceSchema, StatusesSchema
+from .services import SOAP_Service, Invoice
 
 # FACe environments
 FACE_ENVS = {
@@ -11,7 +12,7 @@ FACE_ENVS = {
     'staging': "https://se-face-webservice.redsara.es/facturasspp2?wsdl",
 }
 
-class FACe(SOAP_service):
+class FACe(SOAP_Service):
     """
     FACe object
 
