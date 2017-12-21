@@ -23,6 +23,9 @@ class InvoiceState(object):
         self.descripcion = kwargs.get('descripcion', None)
         self.motivo = kwargs.get('motivo', None)
 
+    def __getitem__(self, item):
+        return self.__dict__[item]
+
 class InvoiceStateSchema(Schema):
     codigo = fields.String(validate=codes.status.validator)
     descripcion = fields.String(allow_none=True)
