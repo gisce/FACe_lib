@@ -17,7 +17,7 @@ face = FACe(certificate=our_certificate)
 Call the requested service (see all available methods), ie:
 
 ```
-result = face.list_nifs()
+result = face.nifs.list()
 ```
 
 ## Integrated FACe services
@@ -26,7 +26,7 @@ result = face.list_nifs()
 
 ### List NIFs
 ```
-result = face.list_nifs()
+result = face.nifs.list()
 print (result.errors)
 print (result.data)
 ```
@@ -34,7 +34,7 @@ print (result.data)
 
 ### Send Invoice
 ```
-result = face.send_invoice(invoice="an_invoice.xsig")
+result = face.invoices.send(invoice="an_invoice.xsig")
 print (result.errors)
 print (result.data)
 ```
