@@ -41,7 +41,7 @@ class Invoice(SOAP_Service):
             "motivo": reason,
         }
 
-        call_result = serialize_object(self.service.anularFactura(**the_invoice))
+        call_result = self.serialize_object(self.service.anularFactura(**the_invoice))
         schema = InvoiceSchema()
         return schema.load(call_result)
 
@@ -54,7 +54,7 @@ class Invoice(SOAP_Service):
         - cancelation flow: it describes the cancelation / anulation flow
         """
 
-        call_result = serialize_object(self.service.consultarEstados())
+        call_result = self.serialize_object(self.service.consultarEstados())
 
         schema = StatusesSchema()
         return schema.load(call_result)
