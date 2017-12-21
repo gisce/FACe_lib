@@ -2,9 +2,8 @@
 from FACe_signer import FACe_signer
 import zeep
 import os.path
-import base64
 from .models import ResponseSchema, AdministrationsSchema, InvoiceSchema, StatusesSchema
-from .services import SOAP_Service, Invoice, NIF
+from .services import SOAP_Service, Invoice, NIF, Administration
 
 # FACe environments
 FACE_ENVS = {
@@ -45,20 +44,7 @@ class FACe(SOAP_Service):
             plugins=[FACe_signer(self.certificate, debug=self.debug)]
         )
 
-        # Initialitze invoices handler
+        # Initialitze specific services handlers
         self.invoices = Invoice(service=self.client.service)
-
-        # Initialitze NIFs handler
         self.nifs = NIF(service=self.client.service)
-
-    def list_administrations(self):
-        """
-        List administrations
-
-        It list all available administrations
-        """
-
-        call_result = serialize_object(self.client.service.consultarAdministraciones())
-
-        schema = AdministrationsSchema()
-        return schema.load(call_result)
+        self.administrations = Administration(service=self.client.service)
