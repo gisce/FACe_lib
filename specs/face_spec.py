@@ -94,13 +94,18 @@ def validate_response(response, model=None):
         expected_response_model = models_by_base_field[model]["response"]
         expected_content_model = models_by_base_field[model]["content"]
         expected_field = models_by_base_field[model]["field"]
+        nullable_field = models_by_base_field[model]["nullable"] if "nullable" in models_by_base_field[model] else False
+
 
         # Validate the response
         assert isinstance(response, expected_response_model), "The response must be a `{}` instance".format(type(response), expected_response_model)
 
         # Validate the internal component of this response
         component = response[expected_field]
-        assert isinstance(component, expected_content_model), "The data '{}' must be a `{}` instance".format(type(component), models_by_base_field[model])
+        if nullable_field:
+            assert component == None or isinstance(component, expected_content_model), "The data '{}' must be a `{}` instance".format(type(component), models_by_base_field[model])
+        else:
+            assert isinstance(component, expected_content_model), "The data '{}' must be a `{}` instance".format(type(component), models_by_base_field[model])
 
     # Test default Response
     else:
