@@ -15,6 +15,11 @@ models_by_base_field = {
         "response": models.invoice.InvoiceResponse,
         "content": models.invoice.InvoiceState,
     },
+    "invoice_anulacion": {
+        "field": "anulacion",
+        "response": models.invoice.InvoiceResponse,
+        "content": models.invoice.InvoiceState,
+    },
     "invoice_state_code": {
         "field": "codigo",
         "response": models.invoice.InvoiceState,
@@ -283,5 +288,7 @@ with description('A new'):
                 validate_response(response.factura.tramitacion, model="invoice_state_reason")
                 validate_response(response.factura.tramitacion, model="invoice_state_description")
 
-
-                assert response.factura.anulacion.codigo, "Response must integrate a valid tramitacion.codigo field ('{}')".format(response.factura.tramitacion.codigo)
+                validate_response(response.factura, model="invoice_anulacion")
+                validate_response(response.factura.anulacion, model="invoice_state_code")
+                validate_response(response.factura.anulacion, model="invoice_state_reason")
+                validate_response(response.factura.anulacion, model="invoice_state_description")
