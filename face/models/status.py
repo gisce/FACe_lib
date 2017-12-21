@@ -4,7 +4,7 @@ from marshmallow import fields, Schema, post_load
 from .response import Response, ResponseSchema
 
 # Load the default status codes
-from ..codes import status_codes
+import face.codes as codes
 
 """
 FACe Status models and schemas
@@ -20,7 +20,7 @@ class Status(object):
         return self.__dict__[item]
 
 class StatusSchema(Schema):
-    codigo = fields.String(validate=status_codes.validator)
+    codigo = fields.String(validate=codes.status.validator)
     descripcion = fields.String()
     nombre = fields.String()
 
