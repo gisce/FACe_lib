@@ -16,8 +16,6 @@ class Invoice(SOAP_Service):
         """
         assert type(invoice) in [int, str], "Invoice must be the registry number of the sended invoice."
         call_result = self.serialize(self.service.consultarFactura(numeroRegistro=str(invoice)))
-
-        print (call_result)
         schema = InvoiceSchema()
         return schema.load(call_result)
 

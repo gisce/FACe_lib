@@ -148,7 +148,6 @@ with description('A new'):
 
     with context('FACe instance'):
         with context('initialization'):
-            """
             with it('must work'):
                 face = FACe(**self.config)
 
@@ -266,7 +265,6 @@ with description('A new'):
                 validate_response(response['estados']['estado'][0], model="status_name")
                 validate_response(response['estados']['estado'][0], model="status_description")
 
-            """
 
             with it('action fetch invoice state must work'):
                 # Send a dummy invoice, just to fetch their invoice id

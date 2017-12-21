@@ -50,6 +50,8 @@ class InvoiceResponse(object):
         self.numeroFactura = kwargs.get('numeroFactura', None)
         self.serieFactura = kwargs.get('serieFactura', None)
         self.fechaRecepcion = kwargs.get('fechaRecepcion', None)
+
+        # needed for consultarFactura
         self.tramitacion = kwargs.get('tramitacion', None)
         self.anulacion = kwargs.get('anulacion', None)
 
