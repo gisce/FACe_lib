@@ -8,6 +8,18 @@ class Invoice(SOAP_Service):
     """
     Integrate all invoice-related methods
     """
+    def fetch(self, invoice):
+        """
+        Fetch an invoice state using their registry number
+
+        It list the state of an already sended invoice.
+        """
+        assert type(invoice) in [int, str], "Invoice must be the registry number of the sended invoice."
+        call_result = self.serialize(self.service.consultarFactura(numeroRegistro=str(invoice)))
+
+        print (call_result)
+        schema = InvoiceSchema()
+        return schema.load(call_result)
 
     def send(self, invoice):
         """
@@ -56,6 +68,5 @@ class Invoice(SOAP_Service):
         """
 
         call_result = self.serialize(self.service.consultarEstados())
-
         schema = StatusesSchema()
         return schema.load(call_result)

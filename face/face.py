@@ -15,6 +15,11 @@ class FACe(object):
     FACe object
 
     Prepare an interface to reach FACe webservices
+
+    The services are attached with their related handlers (see /services/) at:
+    - self.invoices
+    - self.administrations
+    - self.nifs
     """
     def __init__(self, **kwargs):
         """
