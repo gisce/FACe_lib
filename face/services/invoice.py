@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from .service import SOAP_Service
 from ..models import InvoiceSchema, StatusesSchema
+import base64
 
 class Invoice(SOAP_Service):
     """
