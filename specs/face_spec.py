@@ -222,7 +222,7 @@ with description('A new'):
 
 
             with it('action list invoice states must work'):
-                call = self.face.list_invoice_states()
+                call = self.face.invoices.list_states()
 
                 # Validate the response
                 response = call.data
@@ -238,7 +238,7 @@ with description('A new'):
             """
 
             with it('action list invoice states must work'):
-                call = self.face.invoice.list_states()
+                call = self.face.invoices.list_states()
 
                 # Validate the response
                 response = call.data
