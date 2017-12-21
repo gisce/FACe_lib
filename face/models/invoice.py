@@ -17,14 +17,14 @@ Tramitacion, introduced by consultarFactura response as a part of "Factura" resp
 """
 class Tramitacion(object):
     def __init__(self, **kwargs):
-        self.codigo_estado = kwargs.get('codigo_estado', None)
-        self.descripcion_estado = kwargs.get('descripcion_estado', None)
-        self.motivo_estado = kwargs.get('motivo_estado', None)
+        self.codigo = kwargs.get('codigo', None)
+        self.descripcion = kwargs.get('descripcion', None)
+        self.motivo = kwargs.get('motivo', None)
 
 class TramitacionSchema(Schema):
-    codigo_estado = fields.String(allow_none=True)
-    descripcion_estado = fields.String(allow_none=True)
-    motivo_estado = fields.String(allow_none=True)
+    codigo = fields.String(allow_none=True)
+    descripcion = fields.String(allow_none=True)
+    motivo = fields.String(allow_none=True)
 
     @post_load
     def create_tramitacion(self, data):
