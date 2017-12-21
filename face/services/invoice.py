@@ -2,6 +2,7 @@
 from .service import SOAP_Service
 from ..models import InvoiceSchema, StatusesSchema
 import base64
+import os.path
 
 class Invoice(SOAP_Service):
     """
