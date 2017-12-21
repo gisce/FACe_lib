@@ -164,7 +164,7 @@ with description('A new'):
 
 
             with it('action list nifs must work'):
-                call = self.face.list_nifs()
+                call = self.face.nifs.list()
 
                 # Validate the response
                 response = call.data
