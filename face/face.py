@@ -107,3 +107,17 @@ class FACe(object):
 
         schema = AdministrationsSchema()
         return schema.load(call_result)
+
+    def list_invoice_states(self):
+        """
+        List invoice states
+
+        It list all available invoice states. There are two flows:
+        - ordinary flow: it describes the lifecycle of the invoice
+        - cancelation flow: it describes the cancelation / anulation flow
+        """
+
+        call_result = serialize_object(self.client.service.consultarEstados())
+
+        schema = ResponseSchema()
+        return schema.load(call_result)
