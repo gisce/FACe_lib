@@ -4,7 +4,7 @@ import zeep
 import os.path
 import base64
 from .models import ResponseSchema, AdministrationsSchema, InvoiceSchema, StatusesSchema
-from .services import SOAP_Service, Invoice
+from .services import SOAP_Service, Invoice, NIF
 
 # FACe environments
 FACE_ENVS = {
@@ -45,20 +45,11 @@ class FACe(SOAP_Service):
             plugins=[FACe_signer(self.certificate, debug=self.debug)]
         )
 
-        # Initialitze an invoice handler
+        # Initialitze invoices handler
         self.invoices = Invoice(service=self.client.service)
 
-    def list_nifs(self):
-        """
-        List NIFs method.
-
-        Return all the available NIFs
-        """
-        call_result = self.serialize_response(self.client.service.consultarNIFs())
-
-        schema = ResponseSchema()
-        return schema.load(call_result)
-
+        # Initialitze NIFs handler
+        self.nifs = NIF(service=self.client.service)
 
     def list_administrations(self):
         """
