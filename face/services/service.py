@@ -8,5 +8,5 @@ class SOAP_Service(object):
     def __init__(self, service):
         self.service = service
 
-    def serialize_response(self, response):
+    def serialize(self, response):
         return serialize_object(response)

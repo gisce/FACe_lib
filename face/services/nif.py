@@ -13,7 +13,7 @@ class NIF(SOAP_Service):
 
         Return all the available NIFs
         """
-        call_result = self.serialize_response(self.service.consultarNIFs())
+        call_result = self.serialize(self.service.consultarNIFs())
 
         schema = ResponseSchema()
         return schema.load(call_result)

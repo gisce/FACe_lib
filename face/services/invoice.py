@@ -8,6 +8,7 @@ class Invoice(SOAP_Service):
     """
     Integrate all invoice-related methods
     """
+
     def send(self, invoice):
         """
         Send an invoice and return the delivery result
@@ -23,7 +24,7 @@ class Invoice(SOAP_Service):
                 "mime": "application/xml",
             }
         }
-        call_result = self.serialize_response(self.service.enviarFactura(the_invoice))
+        call_result = self.serialize(self.service.enviarFactura(the_invoice))
         schema = InvoiceSchema()
         return schema.load(call_result)
 
@@ -41,7 +42,7 @@ class Invoice(SOAP_Service):
             "motivo": reason,
         }
 
-        call_result = self.serialize_object(self.service.anularFactura(**the_invoice))
+        call_result = self.serialize(self.service.anularFactura(**the_invoice))
         schema = InvoiceSchema()
         return schema.load(call_result)
 
@@ -54,7 +55,7 @@ class Invoice(SOAP_Service):
         - cancelation flow: it describes the cancelation / anulation flow
         """
 
-        call_result = self.serialize_object(self.service.consultarEstados())
+        call_result = self.serialize(self.service.consultarEstados())
 
         schema = StatusesSchema()
         return schema.load(call_result)

@@ -14,7 +14,7 @@ class Administration(SOAP_Service):
         It list all available administrations
         """
 
-        call_result = self.serialize_object(self.client.service.consultarAdministraciones())
+        call_result = self.serialize(self.service.consultarAdministraciones())
 
         schema = AdministrationsSchema()
         return schema.load(call_result)
