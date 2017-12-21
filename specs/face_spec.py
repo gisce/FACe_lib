@@ -11,6 +11,11 @@ models_by_base_field = {
         "response": models.invoice.Invoice,
         "content": models.invoice.InvoiceResponse,
     },
+    "invoice_tramitacion": {
+        "field": "tramitacion",
+        "response": models.invoice.InvoiceResponse,
+        "content": models.invoice.InvoiceState,
+    },
 
 
     # Administrations schema
@@ -253,5 +258,7 @@ with description('A new'):
                 assert response.is_ok, "List invoice state must work"
 
                 validate_response(response, model="invoice")
-                assert response.factura.tramitacion, "Response must integrate a valid tramitacion field inside inside the invoice"
+                validate_response(response.factura, model="invoice_tramitacion")
+
+                assert response.factura.tramitacion.codigo, "Response must integrate a valid tramitacion.codigo field ('{}')".format(response.factura.tramitacion.codigo)
                 assert response.factura.tramitacion.codigo, "Response must integrate a valid tramitacion.codigo field ('{}')".format(response.factura.tramitacion.codigo)
