@@ -208,7 +208,7 @@ with description('A new'):
 
 
             with it('action list administrations must work'):
-                call = self.face.list_administrations()
+                call = self.face.administrations.list()
 
                 # Validate the response
                 response = call.data
