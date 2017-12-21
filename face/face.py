@@ -75,7 +75,7 @@ class Invoice(SOAP_service):
         schema = StatusesSchema()
         return schema.load(call_result)
 
-class FACe(object):
+class FACe(SOAP_service):
     """
     FACe object
 
@@ -108,8 +108,8 @@ class FACe(object):
             plugins=[FACe_signer(self.certificate, debug=self.debug)]
         )
 
-        # Initialitze an invoice
-        self.invoice = Invoice(service=self.client.service)
+        # Initialitze an invoice handler
+        self.invoices = Invoice(service=self.client.service)
 
     def list_nifs(self):
         """
