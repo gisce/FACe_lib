@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from marshmallow import fields, Schema, post_load
 
-import response_codes
+# Load the default result codes
+from face.models.codes import result_codes
+
 """
 FACe Result
 
@@ -29,7 +31,7 @@ class Result(object):
         """
         Review if the Result is OK or KO based on FACe's result codes
         """
-        return True if self.is_performed and str(self.codigo) in response_codes.RESULT_CODES['ok'] else False
+        return True if self.is_performed and str(self.codigo) in result_codes.RESULT_CODES['ok'] else False
 
 class ResultSchema(Schema):
     codigo = fields.Integer()

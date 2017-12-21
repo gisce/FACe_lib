@@ -2,7 +2,9 @@
 from marshmallow import fields, Schema, post_load
 
 from .response import Response, ResponseSchema
-from face.models.codes.status_codes import STATUS_CODES
+
+# Load the default status codes
+from face.models.codes import status_codes
 
 """
 FACe Status models and schemas
