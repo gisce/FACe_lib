@@ -185,3 +185,11 @@ with description('A new'):
                 validate_response(response['administraciones']['administracion'], model="administration")
                 validate_response(response['administraciones']['administracion'][0], model="administration_code")
                 validate_response(response['administraciones']['administracion'][0], model="administration_name")
+
+
+            with it('action list invoice states must work'):
+                call = self.face.list_invoice_states()
+
+                # Validate the response
+                response = call.data
+                assert response.is_ok, "List invoices states must work"
