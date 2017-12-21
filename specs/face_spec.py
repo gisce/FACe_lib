@@ -4,7 +4,6 @@ from face import FACe, models
 OUR_CERT = "certs/our_cert.pem"
 TEST_INVOICE = 'specs/factura-prueba-v1-2-0.xsig'
 
-
 models_by_base_field = {
     "invoice": {
         "field": "factura",
@@ -15,6 +14,22 @@ models_by_base_field = {
         "field": "tramitacion",
         "response": models.invoice.InvoiceResponse,
         "content": models.invoice.InvoiceState,
+    },
+    "invoice_state_code": {
+        "field": "codigo",
+        "response": models.invoice.InvoiceState,
+        "content": unicode,
+    },
+    "invoice_state_reason": {
+        "field": "motivo",
+        "response": models.invoice.InvoiceState,
+        "content": unicode,
+        "nullable": True,
+    },
+    "invoice_state_description": {
+        "field": "descripcion",
+        "response": models.invoice.InvoiceState,
+        "content": unicode,
     },
 
 
@@ -264,6 +279,9 @@ with description('A new'):
 
                 validate_response(response, model="invoice")
                 validate_response(response.factura, model="invoice_tramitacion")
+                validate_response(response.factura.tramitacion, model="invoice_state_code")
+                validate_response(response.factura.tramitacion, model="invoice_state_reason")
+                validate_response(response.factura.tramitacion, model="invoice_state_description")
 
-                assert response.factura.tramitacion.codigo, "Response must integrate a valid tramitacion.codigo field ('{}')".format(response.factura.tramitacion.codigo)
-                assert response.factura.tramitacion.codigo, "Response must integrate a valid tramitacion.codigo field ('{}')".format(response.factura.tramitacion.codigo)
+
+                assert response.factura.anulacion.codigo, "Response must integrate a valid tramitacion.codigo field ('{}')".format(response.factura.tramitacion.codigo)
