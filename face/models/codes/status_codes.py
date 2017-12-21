@@ -1,7 +1,20 @@
 # -*- coding: utf-8 -*-
+from marshmallow import ValidationError
+
 """
 FACe available status
 """
+
+def validator(code):
+    """
+    Status code validator
+    """
+    if code==None:
+        raise ValidationError("Code can't be empty")
+
+    if str(code) not in STATUS_CODES:
+        raise ValidationError("Code '{}' is unknown".format(code))
+
 
 STATUS_CODES = {
     # "Tramitación" status
