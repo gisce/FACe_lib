@@ -56,15 +56,17 @@ class FACe(object):
         schema = ResponseSchema()
         return schema.load(call_result)
 
-    def send_invoice(self, invoice):
+    def send_invoice(self, invoice, email=''):
         """
         Send an invoice and return the delivery result
+        FACe servers will send notifications to the provided email
 
         It prepares the payload wanted for the `enviarFactura` webservice with a base64 invoice and their filename
         """
-        assert type(invoice) == str, "Invoice must the the filename of the invoice to deliver"
+        assert type(invoice) == str, "Invoice must be the filename of the invoice to deliver"
+        assert type(email) == str, "Email must be the email to receive the invoice changes in the FACe servers"
         the_invoice = {
-            "correo": "devel@gisce.net",
+            "correo": email,
             "factura": {
                 "factura": base64.b64encode(open(invoice).read()),
                 "nombre": os.path.basename(invoice),
