@@ -4,14 +4,15 @@ It provides a FACe interface to simplify the interaction with the FACe's WS
 
 ## Usage
 
-Initialize the face interface passing the desired *PEM* certificate:
+Initialize the face interface passing the desired *PEM* certificate and an email
+to receive notifications from FACe servers:
 
 ```
 from face import FACe
 
 our_certificate = 'path_to/cert.pem'
 
-face = FACe(certificate=our_certificate)
+face = FACe(certificate=our_certificate, email='example@example.com')
 ```
 
 Call the requested service (see all available methods), ie:

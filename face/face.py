@@ -21,10 +21,17 @@ class FACe(object):
     def __init__(self, **kwargs):
         """
         Initializes a FACe instance using Zeep with FACe signature plugin using the requested certificate.
+        FACe servers will send notifications to the provided email
         """
         assert "certificate" in kwargs and type(kwargs['certificate']) == str, "The certificate filename for requests signing must be defined"
-        assert os.path.isfile(kwargs['certificate']), "Provided certificate do not exist (or not enought permissions to read it)"
+        assert os.path.isfile(kwargs['certificate']), "Provided certificate does not exist (or not enough permissions to read it)"
         self.certificate = kwargs['certificate']
+
+        # Handle email to receive notifications, df empty string
+        self.email = ''
+        if 'email' in kwargs:
+            assert type(kwargs['email']) == str, "email argument must be a string"
+            self.email = kwargs['email']
 
         # Handle debug, df "False"
         self.debug = False
@@ -35,7 +42,7 @@ class FACe(object):
         # Handle environment, df "prod"
         self.environment = "prod"
         if 'environment' in kwargs:
-            assert type(kwargs['environment']) == str, "environment argument must be an string"
+            assert type(kwargs['environment']) == str, "environment argument must be a string"
             assert kwargs['environment'] in FACE_ENVS.keys(), "Provided environment '{}' not recognized in defined FACE_ENVS {}".format(kwargs['environment'], str(FACE_ENVS.keys()))
             self.environment = kwargs['environment']
 
@@ -56,17 +63,15 @@ class FACe(object):
         schema = ResponseSchema()
         return schema.load(call_result)
 
-    def send_invoice(self, invoice, email=''):
+    def send_invoice(self, invoice):
         """
         Send an invoice and return the delivery result
-        FACe servers will send notifications to the provided email
 
         It prepares the payload wanted for the `enviarFactura` webservice with a base64 invoice and their filename
         """
         assert type(invoice) == str, "Invoice must be the filename of the invoice to deliver"
-        assert type(email) == str, "Email must be the email to receive the invoice changes in the FACe servers"
         the_invoice = {
-            "correo": email,
+            "correo": self.email,
             "factura": {
                 "factura": base64.b64encode(open(invoice).read()),
                 "nombre": os.path.basename(invoice),
