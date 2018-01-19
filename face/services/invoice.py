@@ -8,6 +8,10 @@ class Invoice(SOAP_Service):
     """
     Integrate all invoice-related methods
     """
+    def __init__(self, service, email):
+        super(Invoice, self).__init__(service)
+        self.email = email
+
     def fetch(self, invoice):
         """
         Fetch an invoice state using their registry number
@@ -25,9 +29,9 @@ class Invoice(SOAP_Service):
 
         It prepares the payload wanted for the `enviarFactura` webservice with a base64 invoice and their filename
         """
-        assert type(invoice) == str, "Invoice must the the filename of the invoice to deliver"
+        assert type(invoice) == str, "Invoice must be the filename of the invoice to deliver"
         the_invoice = {
-            "correo": "devel@gisce.net",
+            "correo": self.email,
             "factura": {
                 "factura": base64.b64encode(open(invoice).read()),
                 "nombre": os.path.basename(invoice),

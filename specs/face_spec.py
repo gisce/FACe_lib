@@ -143,6 +143,7 @@ with description('A new'):
         self.config = {
             'certificate': OUR_CERT,
             'environment': "staging",
+            'email': 'fakemail@fakemail.com'
         }
         self.face = FACe(**self.config)
 
