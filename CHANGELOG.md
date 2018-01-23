@@ -1,3 +1,22 @@
+# 0.2.0
+- New package `face.services` desired to handle and group SOAP available methods by each type:
+  - service -> generic SOAP service
+  - `Invoice`
+    - `fetch` -> `consultarFactura`
+    - `send` -> `enviarFactura`
+    - `cancel` -> `anularFactura`
+    - `list_states` -> `consultarEstados`
+  - `NIF`
+    - `list` -> `consultarNIFs`
+  - `Administration`
+    - `list` -> `consultarNIFs`
+- Main `FACe` object now wraps `services` as instance fields:
+  - `invoices` contains
+- New package `face.codes` desired to integrate all `status` and `result` codes
+- Models that use codes now validates it using the `face.codes` schema validators
+- Added official documentation at `/docs`
+- `email` where to reach notifications is now configurable thanks to @gdalmau (see #7)
+
 # 0.1.0
 - Initial FACe interface
   - Initializes a zeep client with FACe signer plugin

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 from FACe_signer import FACe_signer
 import zeep
-from zeep.helpers import serialize_object
 import os.path
-import base64
-from .models import ResponseSchema
+from .services import Invoice, NIF, Administration
+import re
 
 # FACe environments
 FACE_ENVS = {
@@ -17,14 +16,25 @@ class FACe(object):
     FACe object
 
     Prepare an interface to reach FACe webservices
+    FACe servers will send notifications to the provided email
+
+    The services are attached with their related handlers (see /services/) at:
+    - self.invoices
+    - self.administrations
+    - self.nifs
     """
     def __init__(self, **kwargs):
         """
         Initializes a FACe instance using Zeep with FACe signature plugin using the requested certificate.
         """
         assert "certificate" in kwargs and type(kwargs['certificate']) == str, "The certificate filename for requests signing must be defined"
-        assert os.path.isfile(kwargs['certificate']), "Provided certificate do not exist (or not enought permissions to read it)"
+        assert os.path.isfile(kwargs['certificate']), "Provided certificate does not exist (or not enough permissions to read it)"
         self.certificate = kwargs['certificate']
+
+        # Handle email to receive notifications, df empty string
+        assert 'email' in kwargs and type(kwargs['email']) == str, 'The email to receive notifications must be defined'
+        assert re.match(r'[^@]+@[^@]+\.[^@]+', kwargs['email']), 'The email to receive notifications must be a valid email'
+        self.email = kwargs['email']
 
         # Handle debug, df "False"
         self.debug = False
@@ -45,32 +55,7 @@ class FACe(object):
             plugins=[FACe_signer(self.certificate, debug=self.debug)]
         )
 
-    def list_nifs(self):
-        """
-        List NIFs method.
-
-        Return all the available NIFs
-        """
-        call_result = serialize_object(self.client.service.consultarNIFs())
-
-        schema = ResponseSchema()
-        return schema.load(call_result)
-
-    def send_invoice(self, invoice):
-        """
-        Send an invoice and return the delivery result
-
-        It prepares the payload wanted for the `enviarFactura` webservice with a base64 invoice and their filename
-        """
-        assert type(invoice) == str, "Invoice must the the filename of the invoice to deliver"
-        the_invoice = {
-            "correo": "devel@gisce.net",
-            "factura": {
-                "factura": base64.b64encode(open(invoice).read()),
-                "nombre": os.path.basename(invoice),
-                "mime": "application/xml",
-            }
-        }
-        call_result = serialize_object(self.client.service.enviarFactura(the_invoice))
-        schema = ResponseSchema()
-        return schema.load(call_result)
+        # Initialitze specific services handlers
+        self.invoices = Invoice(service=self.client.service, email=self.email)
+        self.nifs = NIF(service=self.client.service)
+        self.administrations = Administration(service=self.client.service)
