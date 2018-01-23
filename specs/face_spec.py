@@ -147,6 +147,7 @@ with description('A new'):
         }
         self.face = FACe(**self.config)
 
+        
     with context('FACe instance'):
         with context('initialization'):
             with it('must work'):
@@ -161,6 +162,7 @@ with description('A new'):
                     excepts = True
                 assert excepts, "FACe init with an incorrect certificate must not work"
 
+                
             with it('must not work without email'):
                 config = dict(self.config)
                 config.pop('email')
@@ -171,7 +173,9 @@ with description('A new'):
                     excepts = True
                 assert excepts, "FACe init without an email must not work"
 
+                
             with it('must not work without an invalid email'):
+                # Empty string
                 config = dict(self.config)
                 config['email'] = ''
                 excepts = False
@@ -179,8 +183,18 @@ with description('A new'):
                     face = FACe(**config)
                 except:
                     excepts = True
-                assert excepts, "FACe init without a valid email must not work"
+                assert excepts, "FACe init without an empty email must not work"
 
+                # Invalid email format
+                config['email'] = 'invalid.email'
+                excepts = False
+                try:
+                    face = FACe(**config)
+                except:
+                    excepts = True
+                assert excepts, "FACe init without a valid email must not work"
+                
+                
             with it('must handle debug mode'):
                 config = dict(self.config)
                 config['debug'] = True
@@ -196,7 +210,7 @@ with description('A new'):
                     excepts = True
                 assert excepts, "FACe init with an incorrect debug mode must not work"
 
-
+                
             with it('must handle environment definition'):
                 config = dict(self.config)
                 config['environment'] = "prod"
