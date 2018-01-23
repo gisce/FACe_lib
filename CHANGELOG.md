@@ -15,6 +15,7 @@
 - New package `face.codes` desired to integrate all `status` and `result` codes
 - Models that use codes now validates it using the `face.codes` schema validators
 - Added official documentation at `/docs`
+- `email` where to reach notifications is now configurable thanks to @gdalmau (see #7)
 
 # 0.1.0
 - Initial FACe interface
