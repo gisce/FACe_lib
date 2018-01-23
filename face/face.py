@@ -3,6 +3,7 @@ from FACe_signer import FACe_signer
 import zeep
 import os.path
 from .services import Invoice, NIF, Administration
+import re
 
 # FACe environments
 FACE_ENVS = {
@@ -15,6 +16,7 @@ class FACe(object):
     FACe object
 
     Prepare an interface to reach FACe webservices
+    FACe servers will send notifications to the provided email
 
     The services are attached with their related handlers (see /services/) at:
     - self.invoices
@@ -26,8 +28,13 @@ class FACe(object):
         Initializes a FACe instance using Zeep with FACe signature plugin using the requested certificate.
         """
         assert "certificate" in kwargs and type(kwargs['certificate']) == str, "The certificate filename for requests signing must be defined"
-        assert os.path.isfile(kwargs['certificate']), "Provided certificate do not exist (or not enought permissions to read it)"
+        assert os.path.isfile(kwargs['certificate']), "Provided certificate does not exist (or not enough permissions to read it)"
         self.certificate = kwargs['certificate']
+
+        # Handle email to receive notifications, df empty string
+        assert 'email' in kwargs and type(kwargs['email']) == str, 'The email to receive notifications must be defined'
+        assert re.match(r'[^@]+@[^@]+\.[^@]+', kwargs['email']), 'The email to receive notifications must be a valid email'
+        self.email = kwargs['email']
 
         # Handle debug, df "False"
         self.debug = False
@@ -49,6 +56,6 @@ class FACe(object):
         )
 
         # Initialitze specific services handlers
-        self.invoices = Invoice(service=self.client.service)
+        self.invoices = Invoice(service=self.client.service, email=self.email)
         self.nifs = NIF(service=self.client.service)
         self.administrations = Administration(service=self.client.service)
