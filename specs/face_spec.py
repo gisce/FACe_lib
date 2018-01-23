@@ -171,6 +171,16 @@ with description('A new'):
                     excepts = True
                 assert excepts, "FACe init without an email must not work"
 
+            with it('must not work without email'):
+                config = dict(self.config)
+                config['email'] = ''
+                excepts = False
+                try:
+                    face = FACe(**config)
+                except:
+                    excepts = True
+                assert excepts, "FACe init without a valid email must not work"
+
             with it('must handle debug mode'):
                 config = dict(self.config)
                 config['debug'] = True
