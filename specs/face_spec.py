@@ -171,7 +171,7 @@ with description('A new'):
                     excepts = True
                 assert excepts, "FACe init without an email must not work"
 
-            with it('must not work without email'):
+            with it('must not work without an invalid email'):
                 config = dict(self.config)
                 config['email'] = ''
                 excepts = False
