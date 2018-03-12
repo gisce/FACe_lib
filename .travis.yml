@@ -1,0 +1,19 @@
+language: python
+python:
+  - '2.7'
+
+before_install:
+  - 'travis_retry sudo apt-get update'
+  - 'travis_retry sudo apt-get install python-dev libxml2-dev libxmlsec1-dev'
+  - 'pip install -r requirements.txt'
+  - 'pip install -r requirements-dev.txt'
+
+script: 'echo "Done without specs" #mamba .'
+
+deploy:
+  provider: pypi
+  user: gisce
+  password:
+    secure: Z+0HUXjluV8U3EdACDW2eUC5KB4mdZvaHNxGrJKKlIRr+jfhUWLFlfNx1NU1zAsEno2diBh+QDAaWtHICvAC162+JpxX8t/y+cAwVpXpvxhdkfwwPdJ5gMnvu4gtIPR620JnO5gOsQRZ0xiBuHmBuvFk7PKFqXKGL2TYqpX9Qrm2xlPae4st9DQ2E13pRllv2z8t4fILYJAE9/ivsSisfmg/GdijCegxXDt3yA2tPdGHLoEWKEyt5nnqFMsftsH8BeT/ENNYkRLtB2Gm22mdhxdKbjL9Ac1KOfUEAuZIsreReX1Be4lyi9nYxSLwD+K0WpHd7g4Qo6m2URAkdXJWR4F3JkxoTaxWODCVvo5EOLlM+XudXZZRu2Q2/mOSmSPLTnJkLVtZjuYk93T76MJnMkz9/JuL1jOBCHRgQqsjFcVNthpm1RrgmfVA8UMTXnPofi1E/Tb2uCCSZApxBeoRegXubstVvEnT7PtTwnzact5BcDWPc6pzmf3g4qrYLfndlFm4w9O5VUc9gnYfL3kfap1zYbNdfyTjG/41nN3E+Bws7xxKQv7BBV+LmDtpbRjFXOdgGJqQ9u6XLC79UEqtf5gCA/qX3gPrRP702zbVK2LHUBAG2LaFTdnCtVu5XJtfkhm7bqZUBB6lRH7yXlcV0wu0M+Lxwdu/DH0jD04QxN0=
+  on:
+    tags: true

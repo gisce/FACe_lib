@@ -1,4 +1,4 @@
 # FACe_signer zeep plugin
-https://github.com/gisce/FACe_signer/archive/master.zip
+FACe_signer
 zeep
 marshmallow

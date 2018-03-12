@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from face import FACe, models
+from face import models
+from face.face import FACe
 
 OUR_CERT = "certs/our_cert.pem"
 TEST_INVOICE = 'specs/factura-prueba-v1-2-0.xsig'
