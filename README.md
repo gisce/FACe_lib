@@ -79,3 +79,12 @@ print (result.errors)
 print (result.data)
 ```
 
+
+## How to install
+
+Just install it using pip:
+
+``` 
+$ pip install FACe_lib
+``` 
+
