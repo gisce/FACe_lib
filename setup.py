@@ -2,7 +2,11 @@
 from setuptools import setup, find_packages
 import face
 
-INSTALL_REQUIRES = ['FACe_signer', 'zeep']
+with open('requirements.txt', 'r') as f:
+    INSTALL_REQUIRES = f.readlines()
+
+with open('requirements-dev.txt', 'r') as f:
+    TESTS_REQUIRE = f.readlines()
 
 setup(
     name='FACe library',
