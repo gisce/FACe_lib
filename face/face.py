@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from FACe_signer import FACe_signer
+from FACe_signer.FACe import FACe_signer
 import zeep
 import os.path
 from .services import Invoice, NIF, Administration
