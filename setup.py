@@ -9,7 +9,7 @@ with open('requirements-dev.txt', 'r') as f:
     TESTS_REQUIRES = f.readlines()
 
 setup(
-    name='FACe library',
+    name='FACe_lib',
     description='FACe interface to simplify the interaction with their webservices',
     version=face.__version__,
     url='http://www.gisce.net',
@@ -23,7 +23,5 @@ setup(
     classifiers = [
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6"
     ]
 )
