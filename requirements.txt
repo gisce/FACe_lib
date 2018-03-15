@@ -2,3 +2,5 @@
 FACe_signer
 zeep
 marshmallow
+certifi
+requests
