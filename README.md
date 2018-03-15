@@ -2,6 +2,15 @@
 
 It provides a FACe interface to simplify the interaction with the FACe's WS
 
+
+## How to install
+
+Just install it using pip:
+
+``` 
+$ pip install FACe_lib
+``` 
+
 ## Usage
 
 Initialize the face interface passing the desired *PEM* certificate and an email
