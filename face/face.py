@@ -53,9 +53,9 @@ class FACe(object):
 
             
         # Inject updated CA root certs for the transport layer
-        updated_session = Sessions()
+        updated_session = Session()
         updated_session.verify = certifi.where()
-        transport = zeep.transports.Tranport(session=updated_session)
+        transport = zeep.transports.Transport(session=updated_session)
         # initialize a ZEEP client with the desired FACe envs
         self.client = zeep.Client(
             FACE_ENVS[self.environment],
