@@ -8,7 +8,7 @@ Initialize the face interface passing the desired *PEM* certificate and an email
 to receive notifications from FACe servers:
 
 ```
-from face import FACe
+from face.face import FACe
 
 our_certificate = 'path_to/cert.pem'
 
@@ -78,13 +78,4 @@ result = face.nifs.list()
 print (result.errors)
 print (result.data)
 ```
-
-
-## How to install
-
-Just install it using pip:
-
-``` 
-$ pip install FACe_lib
-``` 
 
