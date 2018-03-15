@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from FACe_signer.FACe import FACe_signer
 import zeep
-from request import Session
+from requests import Session
 import certifi
 import os.path
 from .services import Invoice, NIF, Administration
