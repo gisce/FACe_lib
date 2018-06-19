@@ -43,7 +43,7 @@ class InvoiceStateSchema(Schema):
 class InvoiceResponse(object):
     def __init__(self, **kwargs):
         self.numeroRegistro = kwargs.get('numeroRegistro', None)
-        self.organoGestor = kwargs.get('organoGestor')
+        self.organoGestor = kwargs.get('organoGestor', None)
         self.unidadTramitadora = kwargs.get('unidadTramitadora', None)
         self.oficinaContable = kwargs.get('oficinaContable', None)
         self.identificadorEmisor = kwargs.get('identificadorEmisor', None)
@@ -60,7 +60,7 @@ class InvoiceResponse(object):
 
 class InvoiceResponseSchema(Schema):
     numeroRegistro = fields.Integer(allow_none=True)
-    organoGestor = fields.String()
+    organoGestor = fields.String(allow_none=True)
     unidadTramitadora = fields.String(allow_none=True)
     oficinaContable = fields.String(allow_none=True)
     identificadorEmisor = fields.String(allow_none=True)
