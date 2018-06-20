@@ -1,4 +1,4 @@
-# 0.2.0
+# 0.2
 - New package `face.services` desired to handle and group SOAP available methods by each type:
   - service -> generic SOAP service
   - `Invoice`
@@ -16,6 +16,7 @@
 - Models that use codes now validates it using the `face.codes` schema validators
 - Added official documentation at `/docs`
 - `email` where to reach notifications is now configurable thanks to @gdalmau (see #7)
+- `InvoiceResponse.organoGestor` now allows `None` value (see #11)
 
 # 0.1.0
 - Initial FACe interface
