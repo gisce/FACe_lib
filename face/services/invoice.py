@@ -23,9 +23,9 @@ class Invoice(SOAP_Service):
         schema = InvoiceSchema()
         return schema.load(call_result)
 
-    def send(self, invoice):
+    def send(self, invoice, attachments=None):
         """
-        Send an invoice and return the delivery result
+        Send an invoice with optional attachments and return the delivery result
 
         It prepares the payload wanted for the `enviarFactura` webservice with a base64 invoice and their filename
         """
@@ -38,6 +38,9 @@ class Invoice(SOAP_Service):
                 "mime": "application/xml",
             }
         }
+        if attachments:
+            the_invoice['anexos'] = attachments
+
         call_result = self.serialize(self.service.enviarFactura(the_invoice))
         schema = InvoiceSchema()
         return schema.load(call_result)
