@@ -59,7 +59,7 @@ class InvoiceResponse(object):
         return self.__dict__[item]
 
 class InvoiceResponseSchema(Schema):
-    numeroRegistro = fields.Integer(allow_none=True)
+    numeroRegistro = fields.String(allow_none=True)
     organoGestor = fields.String(allow_none=True)
     unidadTramitadora = fields.String(allow_none=True)
     oficinaContable = fields.String(allow_none=True)
