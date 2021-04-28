@@ -2,4 +2,4 @@
 from __future__ import (division, absolute_import, print_function, unicode_literals)
 
 __author__ = 'XaviTorello'
-__version__ = '0.2.10'
+__version__ = '0.3.0'
