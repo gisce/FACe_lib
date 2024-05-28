@@ -7,6 +7,10 @@ class Administration(SOAP_Service):
     Integrate all NIF-related methods
     """
 
+    def __init__(self, service, result_obj=False):
+        super(Administration, self).__init__(service)
+        self.result_obj = result_obj
+
     def list(self):
         """
         List administrations

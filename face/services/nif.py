@@ -7,6 +7,10 @@ class NIF(SOAP_Service):
     Integrate all NIF-related methods
     """
 
+    def __init__(self, service, result_obj=False):
+        super(NIF, self).__init__(service)
+        self.result_obj = result_obj
+
     def list(self):
         """
         List NIFs method.
@@ -16,4 +20,7 @@ class NIF(SOAP_Service):
         call_result = self.serialize(self.service.consultarNIFs())
 
         schema = ResponseSchema()
-        return schema.load(call_result)
+        if self.result_obj:
+            return schema.load(call_result)
+        else:
+            return call_result

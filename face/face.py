@@ -51,6 +51,7 @@ class FACe(object):
             assert kwargs['environment'] in FACE_ENVS.keys(), "Provided environment '{}' not recognized in defined FACE_ENVS {}".format(kwargs['environment'], str(FACE_ENVS.keys()))
             self.environment = kwargs['environment']
 
+        self.result_obj = kwargs.get('result_obj', False)
             
         # Inject updated CA root certs for the transport layer
         updated_session = Session()
@@ -64,6 +65,6 @@ class FACe(object):
         )
 
         # Initialitze specific services handlers
-        self.invoices = Invoice(service=self.client.service, email=self.email)
-        self.nifs = NIF(service=self.client.service)
-        self.administrations = Administration(service=self.client.service)
+        self.invoices = Invoice(service=self.client.service, email=self.email, result_obj=self.result_obj)
+        self.nifs = NIF(service=self.client.service, result_obj=self.result_obj)
+        self.administrations = Administration(service=self.client.service, result_obj=self.result_obj)
