@@ -46,11 +46,17 @@ class FACe(object):
 
         # Handle environment, df "prod"
         self.environment = "prod"
+        self.destination = kwargs.get('destination', 'FACE')
+        if self.destination == 'FACE':
+            destination = FACE_ENVS
+        else:
+            raise Exception("Environment isn't correct. It must be FACE")
         if 'environment' in kwargs:
             assert type(kwargs['environment']) == str, "environment argument must be an string"
-            assert kwargs['environment'] in FACE_ENVS.keys(), "Provided environment '{}' not recognized in defined FACE_ENVS {}".format(kwargs['environment'], str(FACE_ENVS.keys()))
+            assert kwargs['environment'] in destination.keys(), "Provided environment '{}' not recognized in defined destination {}".format(kwargs['environment'], str(destination.keys()))
             self.environment = kwargs['environment']
 
+        self.result_obj = kwargs.get('result_obj', False)
             
         # Inject updated CA root certs for the transport layer
         updated_session = Session()
@@ -58,12 +64,12 @@ class FACe(object):
         transport = zeep.transports.Transport(session=updated_session)
         # initialize a ZEEP client with the desired FACe envs
         self.client = zeep.Client(
-            FACE_ENVS[self.environment],
+            destination[self.environment],
             plugins=[FACe_signer(self.certificate, debug=self.debug)],
             transport=transport
         )
 
         # Initialitze specific services handlers
-        self.invoices = Invoice(service=self.client.service, email=self.email)
-        self.nifs = NIF(service=self.client.service)
-        self.administrations = Administration(service=self.client.service)
+        self.invoices = Invoice(service=self.client.service, email=self.email, result_obj=self.result_obj)
+        self.nifs = NIF(service=self.client.service, result_obj=self.result_obj)
+        self.administrations = Administration(service=self.client.service, result_obj=self.result_obj)

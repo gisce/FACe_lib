@@ -8,9 +8,10 @@ class Invoice(SOAP_Service):
     """
     Integrate all invoice-related methods
     """
-    def __init__(self, service, email):
+    def __init__(self, service, email, result_obj=False):
         super(Invoice, self).__init__(service)
         self.email = email
+        self.result_obj = result_obj
 
     def fetch(self, invoice):
         """
@@ -21,20 +22,28 @@ class Invoice(SOAP_Service):
         assert type(invoice) in [int, str], "Invoice must be the registry number of the sended invoice."
         call_result = self.serialize(self.service.consultarFactura(numeroRegistro=str(invoice)))
         schema = InvoiceSchema()
-        return schema.load(call_result)
+        if self.result_obj:
+            return schema.load(call_result)
+        else:
+            return call_result
 
-    def send(self, invoice, attachments=None):
+    def send_by_filename(self, invoice, attachments=None):
+        assert type(invoice) == str, "Invoice must be the filename of the invoice to deliver"
+        invoice_content = base64.b64encode(open(invoice).read())
+        invoice_filename = os.path.basename(invoice)
+        return self.send(invoice_filename, invoice_content, attachments=attachments)
+
+    def send(self, invoice_filename, invoice_content, attachments=None):
         """
         Send an invoice with optional attachments and return the delivery result
 
         It prepares the payload wanted for the `enviarFactura` webservice with a base64 invoice and their filename
         """
-        assert type(invoice) == str, "Invoice must be the filename of the invoice to deliver"
         the_invoice = {
             "correo": self.email,
             "factura": {
-                "factura": base64.b64encode(open(invoice).read()),
-                "nombre": os.path.basename(invoice),
+                "factura": invoice_content,
+                "nombre": invoice_filename,
                 "mime": "application/xml",
             }
         }
@@ -43,7 +52,10 @@ class Invoice(SOAP_Service):
 
         call_result = self.serialize(self.service.enviarFactura(the_invoice))
         schema = InvoiceSchema()
-        return schema.load(call_result)
+        if self.result_obj:
+            return schema.load(call_result)
+        else:
+            return call_result
 
     def cancel(self, invoice, reason):
         """
@@ -61,7 +73,10 @@ class Invoice(SOAP_Service):
 
         call_result = self.serialize(self.service.anularFactura(**the_invoice))
         schema = InvoiceSchema()
-        return schema.load(call_result)
+        if self.result_obj:
+            return schema.load(call_result)
+        else:
+            return call_result
 
     def list_states(self):
         """
@@ -74,4 +89,7 @@ class Invoice(SOAP_Service):
 
         call_result = self.serialize(self.service.consultarEstados())
         schema = StatusesSchema()
-        return schema.load(call_result)
+        if self.result_obj:
+            return schema.load(call_result)
+        else:
+            return call_result
