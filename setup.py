@@ -11,6 +11,7 @@ with open('requirements-dev.txt', 'r') as f:
 setup(
     name='FACe_lib',
     description='FACe interface to simplify the interaction with their webservices',
+    long_description='FACe interface to simplify the interaction with their webservices',
     version=face.__version__,
     url='http://www.gisce.net',
     author='GISCE-TI, S.L.',
@@ -20,7 +21,7 @@ setup(
     tests_require=TESTS_REQUIRES,
     license='GNU GPLv3',
     provides=['FACe_lib'],
-    classifiers = [
+    classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
     ]
