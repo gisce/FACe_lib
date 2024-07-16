@@ -13,12 +13,6 @@ FACE_ENVS = {
     'staging': "https://se-face-webservice.redsara.es/facturasspp2?wsdl",
 }
 
-EFACT_ENVS = {
-    'prod': "https://efact.aoc.cat/bustia/services/EFactWebServiceProxyService.wsdl",
-    'staging': "https://efact-pre.aoc.cat/bustia/services/EFactWebServiceProxyService.wsdl",
-}
-
-
 class FACe(object):
     """
     FACe object
@@ -55,10 +49,8 @@ class FACe(object):
         self.destination = kwargs.get('destination', 'FACE')
         if self.destination == 'FACE':
             destination = FACE_ENVS
-        elif self.destination == 'EFACT':
-            destination = EFACT_ENVS
         else:
-            raise Exception("Environment isn't correct. It must be FACE or EFACT")
+            raise Exception("Environment isn't correct. It must be FACE")
         if 'environment' in kwargs:
             assert type(kwargs['environment']) == str, "environment argument must be an string"
             assert kwargs['environment'] in destination.keys(), "Provided environment '{}' not recognized in defined destination {}".format(kwargs['environment'], str(destination.keys()))
