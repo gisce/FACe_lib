@@ -50,9 +50,16 @@ print (result.errors)
 print (result.data)
 ```
 
+#### Send Invoice by Filepath
+```
+result = face.invoices.send_by_filename(invoice="an_invoice.xsig")
+print (result.errors)
+print (result.data)
+```
+
 #### Send Invoice
 ```
-result = face.invoices.send(invoice="an_invoice.xsig")
+result = face.invoices.send_by_filename("Facturae.xsig", b64content)
 print (result.errors)
 print (result.data)
 ```
